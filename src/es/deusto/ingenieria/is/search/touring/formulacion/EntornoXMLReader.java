@@ -10,8 +10,8 @@ import es.deusto.ingenieria.is.search.xml.StateXMLReader;
 
 public class EntornoXMLReader extends StateXMLReader {
 
-	private int posX;
-	private int posY;
+	private double posX;
+	private double posY;
 	private String nombre;
 	private int cities; 
 	private Entorno entorno;
@@ -25,7 +25,11 @@ public class EntornoXMLReader extends StateXMLReader {
 	@Override
 	public State getState() {
 		entorno.setCiudades(aCiudades);
-		return entorno;
+//		for(int i = 0; i < aCiudades.size(); i++)
+//		{
+//			entorno.getCiudades().get(i).setCiudadesPosibles(aCiudades);
+//		}
+			return entorno;
 	}
 
 	public void startElement(String uri, String localName, String qName,
@@ -39,21 +43,21 @@ public class EntornoXMLReader extends StateXMLReader {
 				this.setCities(Integer.parseInt(attributes.getValue("cities")));
 			}  else if (qName.equals("is:start") ){ 
 				this.nombre = attributes.getValue("nombre");
-				this.posX = Integer.parseInt(attributes.getValue("x"));
-				this.posY = Integer.parseInt(attributes.getValue("y"));
+				this.posX = Double.parseDouble(attributes.getValue("x"));
+				this.posY = Double.parseDouble(attributes.getValue("y"));
 				entorno.setInicio(new Ciudad(posX,posY,nombre));
 			} 
 			else if (qName.equals("is:end") ){ 
 				this.nombre = attributes.getValue("nombre");
-				this.posX = Integer.parseInt(attributes.getValue("x"));
-				this.posY = Integer.parseInt(attributes.getValue("y"));
+				this.posX = Double.parseDouble(attributes.getValue("x"));
+				this.posY = Double.parseDouble(attributes.getValue("y"));
 				entorno.setFin(new Ciudad(posX,posY,nombre));
 			    
 			} 
 			else if (qName.equals("is:ciudad")) { 
 				this.nombre = attributes.getValue("nombre");
-				this.posX = Integer.parseInt(attributes.getValue("x"));
-				this.posY = Integer.parseInt(attributes.getValue("y"));
+				this.posX = Double.parseDouble(attributes.getValue("x"));
+				this.posY = Double.parseDouble(attributes.getValue("y"));
 				aCiudades.add(new Ciudad(posX,posY,nombre));
 			} 
 			

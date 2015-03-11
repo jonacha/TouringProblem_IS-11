@@ -1,26 +1,29 @@
 package es.deusto.ingenieria.is.search.touring.formulacion;
 
+import java.util.ArrayList;
+
 public class Ciudad {
-	private int x;
-	private  int y;
-	private int orden;
+	private double x;
+	private  double y;
+	private int orden = -1;
 	private String nombre;
+	//private ArrayList<Ciudad> ciudadesPosibles = new ArrayList<Ciudad>();
 
 
-	public Ciudad(int x, int y, String nombre) {
 
+	public Ciudad(double x, double y, String nombre) {
+		super();
 		this.x = x;
 		this.y = y;
-		this.orden = -1;
 		this.nombre = nombre;
 	}
-	public int getx() {
+	public double getx() {
 		return x;
 	}
 	public void setx(int x) {
 		this.x = x;
 	}
-	public int gety() {
+	public double gety() {
 		return y;
 	}
 	public void sety(int y) {
@@ -56,9 +59,15 @@ public class Ciudad {
 		} 
 		catch (CloneNotSupportedException e) 
 		{
-			System.err.println("% [ERROR] Room.clone(): " + e.getMessage());
+			System.err.println("% [ERROR] Ciudad.clone(): " + e.getMessage());
 		}
 
 		return clon;		
 	}
+//	public ArrayList<Ciudad> getCiudadesPosibles() {
+//		return ciudadesPosibles;
+//	}
+//	public void setCiudadesPosibles(ArrayList<Ciudad> ciudadesPosibles) {
+//		this.ciudadesPosibles = ciudadesPosibles;
+//	}
 }

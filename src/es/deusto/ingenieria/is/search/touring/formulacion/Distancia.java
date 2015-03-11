@@ -3,42 +3,45 @@ package es.deusto.ingenieria.is.search.touring.formulacion;
 
 
 public class Distancia {
-	private Ciudad Origen;
-	private Ciudad Destino;
-	private float distancia;
+	private Ciudad origen;
+	private Ciudad destino = null;
+	private double distancia;
 	public Ciudad getOrigen() {
-		return Origen;
+		return origen;
 	}
 	Distancia(){
 		
 	}
 	public void setOrigen(Ciudad origen) {
-		Origen = origen;
+		this.origen = origen;
 	}
 	public Ciudad getDestino() {
-		return Destino;
+		return destino;
 	}
 	public void setDestino(Ciudad destino) {
-		this.Destino = destino;
+		this.destino = destino;
 	}
-	public float getDistanciaTotal() {
+	public double getDistancia() {
 		return distancia;
 	}
-	public void setDistanciaTotal(float distanciaTotal) {
-		this.distancia = distanciaTotal;
+	public void setDistancia(double distancia) {
+		this.distancia = distancia;
 	}
 	public Distancia(Ciudad origen, Ciudad destino, float distancia) {
 		
-		Origen = origen;
-		this.Destino = destino;
+		this.origen = origen;
+		this.destino = destino;
 		this.distancia = distancia;
 	}
+	
+
 	@Override
 	public String toString() {
-		return "Distancia [Origen=" + Origen + ", destino=" + Destino
-				+ ", distanciaTotal=" + distancia + "]";
+		return "Distancia [origen=" + origen + ", destino=" + destino
+				+ ", distancia=" + distancia + "]";
 	}
-
-
-
+	public void calcularDistancia()
+	{
+		this.distancia = Math.sqrt((Math.pow(destino.getx() - origen.getx(), 2)) + (Math.pow(destino.gety() - origen.gety(), 2)));
+	}
 }

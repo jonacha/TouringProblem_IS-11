@@ -1,14 +1,14 @@
 package es.deusto.ingenieria.is.search.touring.formulacion;
 
 import java.util.ArrayList;
-
 import es.deusto.ingenieria.is.search.formulation.State;
 
 public class Entorno extends State implements Cloneable{
-	private Ciudad inicio=new Ciudad();
-	private Ciudad fin=new Ciudad();
+	private Ciudad inicio = new Ciudad();
+	private Ciudad fin = new Ciudad();
 	private Ciudad actual = new Ciudad();
-	
+	private double distanciaTotal = 0;
+
 	private  ArrayList <Ciudad>aCiudades=new ArrayList<Ciudad>();
 	private ArrayList<Ciudad> aCiudadesVisitadas = new ArrayList<Ciudad>();
 
@@ -33,7 +33,7 @@ public class Entorno extends State implements Cloneable{
 	public Entorno(){
 
 	}
-	
+
 	public Entorno(Ciudad inicio, Ciudad fin, ArrayList<Ciudad> ciudades) {
 		super();
 		this.inicio = inicio;
@@ -82,24 +82,24 @@ public class Entorno extends State implements Cloneable{
 	public void setCiudadesVisitadas(ArrayList<Ciudad> aCiudadesVisitadas) {
 		this.aCiudadesVisitadas = aCiudadesVisitadas;
 	}
-	
+
 	//clona el entorno actual
 	@SuppressWarnings("unchecked")
 	public Object clone()
 	{
 		Entorno clon = null;
-		
+
 		try {
 			clon = (Entorno) super.clone();
-			clon.aCiudades = (ArrayList<Ciudad>) this.aCiudades.clone();
-			clon.aCiudadesVisitadas = (ArrayList<Ciudad>) this.aCiudadesVisitadas.clone();
 			clon.inicio = (Ciudad) this.inicio.clone();
 			clon.actual = (Ciudad) this.actual.clone();
 			clon.fin = (Ciudad) this.fin.clone();
+			clon.aCiudades = (ArrayList<Ciudad>) this.aCiudades.clone();
+			clon.aCiudadesVisitadas = (ArrayList<Ciudad>) this.aCiudadesVisitadas.clone();
 		} catch (CloneNotSupportedException e) {
-			System.err.println("% [ERROR] Environment.clone(): " + e.getMessage());
+			System.err.println("% [ERROR] Entorno.clone(): " + e.getMessage());
 		}
-		
+
 		return clon;
 	}
 	public Ciudad getActual() {
@@ -107,5 +107,77 @@ public class Entorno extends State implements Cloneable{
 	}
 	public void setActual(Ciudad actual) {
 		this.actual = actual;
+	}
+	public double getDistanciaTotal() {
+		return distanciaTotal;
+	}
+	public void setDistanciaTotal(double distanciaTotal) {
+		this.distanciaTotal = distanciaTotal;
 	} 
+
+
+	public void rellenarCiudadesPotenciales()
+	{
+
+	}
+
+	/**
+	 * Main
+	 * @param args
+	 */
+	public static void main(String[]args)
+	{
+		Ciudad s = new Ciudad(1,4,"S");
+		Ciudad a = new Ciudad(3,2,"A");
+		Ciudad e = new Ciudad(11,1,"E");
+		Ciudad z = new Ciudad(15,5,"Z");
+
+		Desplazarse desp = new Desplazarse();
+
+		Distancia d = new Distancia();
+		d.setOrigen(s);
+		d.setDestino(a);
+		d.calcularDistancia();
+		System.out.println("Distancia entre s y a: " + d.getDistancia()); // prueba de metodo de calculo de distancia entre  S y A
+
+		ArrayList<Ciudad> aCiudades = new ArrayList<Ciudad>();
+		aCiudades.add(a);
+		aCiudades.add(e);
+
+		Entorno ent = new Entorno(s, z, aCiudades); //Creación de un entorno de pruebas
+		desp.setDistanciaTotal(d); // introducción de los datos para realizar el desplazamiento
+		if(desp.isApplicable(ent)) //Comprobamos que la acción es aplicable
+		{
+			System.out.println("Es aplicable");
+			ent = (Entorno) desp.effect(ent);
+
+		}
+		else
+		{
+			System.out.println("No soy aplicable");
+		}
+
+
+		d.setDestino(a);
+		desp.setDistanciaTotal(d);
+		if(desp.isApplicable(ent))//Comprobamos que la acción no es aplicable, su sale el interior de este if en pantalla está mal
+		{
+			System.out.println("No debo salir");
+		}
+
+		System.out.println(ent); // mostramos el contenido del entorno de pruebas
+
+		Entorno entclon = new Entorno(); // Creamos un entorno vacío en el que vamos a clonar el entorno de pruebas
+		entclon = (Entorno) ent.clone(); //Clonamos el entorno
+		System.out.println(entclon); // mostramos el contenido del entorno clon
+		if(ent.equals(entclon))
+		{
+			System.out.println("Soy igual");
+		}
+		ent.getCiudades().add(s); // añadimos un cambio	
+		if(!ent.equals(entclon))
+		{
+			System.out.println("Soy diferente");
+		}
+	}
 }
