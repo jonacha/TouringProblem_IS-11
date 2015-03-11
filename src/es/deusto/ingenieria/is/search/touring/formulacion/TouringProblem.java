@@ -19,7 +19,6 @@ public class TouringProblem extends Problem
 		
 	}
 	
-	
 	public boolean isFinalState(State estado)
 	{
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado);

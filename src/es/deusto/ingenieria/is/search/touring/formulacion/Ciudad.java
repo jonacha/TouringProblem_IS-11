@@ -7,7 +7,7 @@ public class Ciudad {
 	private  double y;
 	private int orden = -1;
 	private String nombre;
-	//private ArrayList<Ciudad> ciudadesPosibles = new ArrayList<Ciudad>();
+    private ArrayList<Ciudad> ciudadesPosibles = new ArrayList<Ciudad>();
 
 
 
@@ -49,13 +49,15 @@ public class Ciudad {
 	}
 	public Ciudad() {}
 
+	@SuppressWarnings("unchecked")
 	public Object clone() 
 	{
-		Object clon = null;
+		Ciudad clon = null;
 
 		try 
 		{
-			clon = super.clone();
+			clon = (Ciudad) super.clone();
+			clon.ciudadesPosibles = (ArrayList<Ciudad>) this.ciudadesPosibles.clone();
 		} 
 		catch (CloneNotSupportedException e) 
 		{
@@ -64,10 +66,10 @@ public class Ciudad {
 
 		return clon;		
 	}
-//	public ArrayList<Ciudad> getCiudadesPosibles() {
-//		return ciudadesPosibles;
-//	}
-//	public void setCiudadesPosibles(ArrayList<Ciudad> ciudadesPosibles) {
-//		this.ciudadesPosibles = ciudadesPosibles;
-//	}
+	public ArrayList<Ciudad> getCiudadesPosibles() {
+		return ciudadesPosibles;
+	}
+	public void setCiudadesPosibles(ArrayList<Ciudad> ciudadesPosibles) {
+		this.ciudadesPosibles = ciudadesPosibles;
+	}
 }

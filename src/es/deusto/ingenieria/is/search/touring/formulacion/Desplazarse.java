@@ -33,7 +33,6 @@ public class Desplazarse extends Operator {
 			{
 				if(entorno.getCiudadesVisitadas().get(i).getNombre().equals(distancia.getDestino().getNombre()))
 				{
-					System.out.println("Entréeeeee");
 					enc = true;
 				}
 				else

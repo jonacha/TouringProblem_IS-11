@@ -23,7 +23,8 @@ public class EntornoXMLReader extends StateXMLReader {
 	}
 
 	@Override
-	public State getState() {
+	public State getState() 
+	{
 		entorno.setCiudades(aCiudades);
 //		for(int i = 0; i < aCiudades.size(); i++)
 //		{
