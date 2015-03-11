@@ -24,13 +24,23 @@ public class EntornoXMLReader extends StateXMLReader {
 
 	@Override
 	public State getState() 
-	{
+	{ 
 		entorno.setCiudades(aCiudades);
-//		for(int i = 0; i < aCiudades.size(); i++)
-//		{
-//			entorno.getCiudades().get(i).setCiudadesPosibles(aCiudades);
-//		}
-			return entorno;
+		ArrayList<Ciudad> apoyoCiudades=new ArrayList<Ciudad>();
+		Ciudad apoyoCiudad=new Ciudad();
+		for(int j=0;j<aCiudades.size();j++){
+			apoyoCiudad=aCiudades.get(j);
+			for(int i = 0; i < aCiudades.size(); i++)
+			{
+				if(!aCiudades.get(i).getNombre().equals(apoyoCiudad.getNombre())){
+					apoyoCiudades.add(aCiudades.get(i));
+				}
+
+			}
+			apoyoCiudades.add(entorno.getFin());
+			entorno.getCiudades().get(j).setCiudadesPosibles(aCiudades);
+		}
+		return entorno;
 	}
 
 	public void startElement(String uri, String localName, String qName,

@@ -6,18 +6,34 @@ import es.deusto.ingenieria.is.search.formulation.State;
 
 
 public class Desplazarse extends Operator {
-	private Distancia distancia;
-
+	private Ciudad origen;
+    private Ciudad destino;
 	public Desplazarse()
 	{
 		super("Desplazarse", 1d);
 	}
-	public Distancia getDistancia() {
-		return distancia;
+	
+	public Desplazarse(Ciudad origen, Ciudad destino) {
+		this.origen = origen;
+		this.destino = destino;
 	}
-	public void setDistanciaTotal(Distancia distanciaTotal) {
-		this.distancia = distanciaTotal;
+
+	public Ciudad getOrigen() {
+		return origen;
 	}
+
+	public void setOrigen(Ciudad origen) {
+		this.origen = origen;
+	}
+
+	public Ciudad getDestino() {
+		return destino;
+	}
+
+	public void setDestino(Ciudad destino) {
+		this.destino = destino;
+	}
+
 	protected void MoverCiudad(){
 		//seleccionara el camino mas corto actualizando el orden del array list statico
 	}
@@ -31,13 +47,13 @@ public class Desplazarse extends Operator {
 		{
 			while(!enc && i <= entorno.getCiudadesVisitadas().size())
 			{
-				if(entorno.getCiudadesVisitadas().get(i).getNombre().equals(distancia.getDestino().getNombre()))
+				if(entorno.getCiudadesVisitadas().get(i).getNombre().equals(this.destino.getNombre()))
 				{
 					enc = true;
 				}
 				else
 				{
-					System.out.println(entorno.getCiudadesVisitadas().get(i).getNombre() + " " + distancia.getDestino().getNombre());
+					System.out.println(entorno.getCiudadesVisitadas().get(i).getNombre() + " " + this.destino.getNombre());
 					i++;
 				}
 			}
@@ -52,22 +68,32 @@ public class Desplazarse extends Operator {
 			return true;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "Desplazarse [origen=" + origen + ", destino=" + destino + " Distancia="+this.getCost()+"]";
+	}
+
+	public void calcularCoste(){
+		this.setCost(Math.sqrt((Math.pow(destino.getx() - origen.getx(), 2)) + (Math.pow(destino.gety() - origen.gety(), 2))));
+	}
+	
 	/*Añade la nueva ciudad al array de visitadas y le da el nº del orden. Calcula la distancia de la ciudad actual con la ciudad destino
 	 * Muestra la ciudad origen y la destino para mostrar el recorrido.
 	 */
 	protected State effect(State estado) {
-
+		
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado).clone();
-		System.out.println(distancia); // muestra la distancia entre la ciudad origen y destino actuales que llevarán a cabo la acción de desplazarse
-		distancia.calcularDistancia();
-		distancia.getDestino().setOrden(nuevoEntorno.getCiudadesVisitadas().size() + 1);
-		nuevoEntorno.getCiudadesVisitadas().add(distancia.getDestino());
+	    calcularCoste();
+	    System.out.println(this); // muestra la distancia entre la ciudad origen y destino actuales que llevarán a cabo la acción de desplazarse
+		this.destino.setOrden(nuevoEntorno.getCiudadesVisitadas().size() + 1);
+		nuevoEntorno.getCiudadesVisitadas().add(this.destino);
 		System.out.println("Ciudades visitadas: " + nuevoEntorno.getCiudadesVisitadas());
-		nuevoEntorno.setDistanciaTotal(nuevoEntorno.getDistanciaTotal() + distancia.getDistancia());
-		distancia.setOrigen(distancia.getDestino());
-		nuevoEntorno.setActual(distancia.getDestino());
+		nuevoEntorno.setDistanciaTotal(nuevoEntorno.getDistanciaTotal() +this.getCost());
+		this.origen=(this.destino);
+		nuevoEntorno.setActual(this.destino);
 	//	nuevoEntorno.getActual().getCiudadesPosibles().remove(nuevoEntorno.getActual());
-		distancia.setDestino(null);
+		this.destino=null;
 		return nuevoEntorno;
 	}
 }

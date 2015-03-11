@@ -131,21 +131,18 @@ public class Entorno extends State implements Cloneable{
 		Ciudad a = new Ciudad(3,2,"A");
 		Ciudad e = new Ciudad(11,1,"E");
 		Ciudad z = new Ciudad(15,5,"Z");
-
-		Desplazarse desp = new Desplazarse();
-
-		Distancia d = new Distancia();
-		d.setOrigen(s);
-		d.setDestino(a);
-		d.calcularDistancia();
-		System.out.println("Distancia entre s y a: " + d.getDistancia()); // prueba de metodo de calculo de distancia entre  S y A
-
+		/**
+		 * Ya que no vamos a solucionar el problema por el momento hemos decivido no rellenar el 
+		 * Array de las ciudades posibles a las que se puede ir
+		 * 
+		 */
+		Desplazarse desp = new Desplazarse(s,a);//Creaccion de desplazarse
 		ArrayList<Ciudad> aCiudades = new ArrayList<Ciudad>();
 		aCiudades.add(a);
 		aCiudades.add(e);
 
 		Entorno ent = new Entorno(s, z, aCiudades); //Creación de un entorno de pruebas
-		desp.setDistanciaTotal(d); // introducción de los datos para realizar el desplazamiento
+	System.out.println("Entorno1="+ent);
 		if(desp.isApplicable(ent)) //Comprobamos que la acción es aplicable
 		{
 			System.out.println("Es aplicable");
@@ -157,12 +154,13 @@ public class Entorno extends State implements Cloneable{
 			System.out.println("No soy aplicable");
 		}
 
-
-		d.setDestino(a);
-		desp.setDistanciaTotal(d);
+		desp.setDestino(a);
 		if(desp.isApplicable(ent))//Comprobamos que la acción no es aplicable, su sale el interior de este if en pantalla está mal
 		{
 			System.out.println("No debo salir");
+		}
+		else{
+			System.out.println("Correcto");
 		}
 
 		System.out.println(ent); // mostramos el contenido del entorno de pruebas
@@ -179,5 +177,6 @@ public class Entorno extends State implements Cloneable{
 		{
 			System.out.println("Soy diferente");
 		}
+		
 	}
 }
