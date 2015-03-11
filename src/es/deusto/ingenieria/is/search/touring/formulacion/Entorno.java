@@ -39,6 +39,7 @@ public class Entorno extends State implements Cloneable{
 		this.inicio = inicio;
 		this.fin = fin;
 		aCiudades = ciudades;
+	 this.actual=inicio;
 	}
 	@Override
 	public String toString() {
@@ -49,7 +50,7 @@ public class Entorno extends State implements Cloneable{
 	@Override
 	public boolean equals(Object ent) 
 	{
-		boolean enc = false;
+		boolean enc = true;
 		int i = 0;
 		if(ent != null && ent instanceof Entorno)
 		{
@@ -57,6 +58,8 @@ public class Entorno extends State implements Cloneable{
 			if(e.getActual().getNombre().equals(this.actual.getNombre())
 					&&e.getActual().getx()==this.actual.getx()&&e.getActual().gety()==this.actual.gety() 
 					&&  e.getCiudadesVisitadas().size()==this.aCiudadesVisitadas.size()){
+
+
 				while(enc && i < e.getCiudadesVisitadas().size())
 				{
 					if(e.getCiudadesVisitadas().get(i).getNombre().equals(this.aCiudadesVisitadas.get(i).getNombre())
@@ -68,11 +71,18 @@ public class Entorno extends State implements Cloneable{
 					}
 					else
 					{
-						enc=true;
+						enc=false;//para la condicion del array si no se cumple se combierte en false
 					}
 
 				}
+
 			}
+			else{
+				enc=false;//para la condicion de tamaño de ciudad visitad,y la ciudad actual
+			}
+		}
+		else{
+			enc=false;//para comprobar si es nulo
 		}
 		return enc;
 	}
@@ -140,9 +150,8 @@ public class Entorno extends State implements Cloneable{
 		ArrayList<Ciudad> aCiudades = new ArrayList<Ciudad>();
 		aCiudades.add(a);
 		aCiudades.add(e);
-
 		Entorno ent = new Entorno(s, z, aCiudades); //Creación de un entorno de pruebas
-	System.out.println("Entorno1="+ent);
+	    System.out.println("Entorno1="+ent);
 		if(desp.isApplicable(ent)) //Comprobamos que la acción es aplicable
 		{
 			System.out.println("Es aplicable");
@@ -164,15 +173,17 @@ public class Entorno extends State implements Cloneable{
 		}
 
 		System.out.println(ent); // mostramos el contenido del entorno de pruebas
-
-		Entorno entclon = new Entorno(); // Creamos un entorno vacío en el que vamos a clonar el entorno de pruebas
-		entclon = (Entorno) ent.clone(); //Clonamos el entorno
-		System.out.println(entclon); // mostramos el contenido del entorno clon
+        ent=new Entorno(s,z,aCiudades);
+		Entorno entclon = new Entorno(s,z,aCiudades); // Creamos un entorno vacío en el que vamos a clonar el entorno de pruebas
+			System.out.println(ent);
+			System.out.println(entclon);
+				//entclon = (Entorno) ent.clone(); //Clonamos el entorno
+		//System.out.println(entclon); // mostramos el contenido del entorno clon
 		if(ent.equals(entclon))
 		{
 			System.out.println("Soy igual");
 		}
-		ent.getCiudades().add(s); // añadimos un cambio	
+		ent.getCiudadesVisitadas().add(s); // añadimos un cambio	
 		if(!ent.equals(entclon))
 		{
 			System.out.println("Soy diferente");
