@@ -177,7 +177,7 @@ public class Entorno extends State implements Cloneable{
 		Entorno entclon = new Entorno(s,z,aCiudades); // Creamos un entorno vacío en el que vamos a clonar el entorno de pruebas
 			System.out.println(ent);
 			System.out.println(entclon);
-				//entclon = (Entorno) ent.clone(); //Clonamos el entorno
+		//entclon = (Entorno) ent.clone(); //Clonamos el entorno
 		//System.out.println(entclon); // mostramos el contenido del entorno clon
 		if(ent.equals(entclon))
 		{
