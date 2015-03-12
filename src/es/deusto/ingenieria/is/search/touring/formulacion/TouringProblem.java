@@ -13,12 +13,22 @@ public class TouringProblem extends Problem
 	}
 	
 	@Override
+	/**
+	 * Lectura del archivo XMLReader y creaccion del entorno
+	 *@return State
+	 */
 	public State gatherInitialPercepts() {
 		EntornoXMLReader entornoXMLReader = new EntornoXMLReader("data/InitialState.xml");
 		return entornoXMLReader.getState();
 		
 	}
-	
+	@Override
+	/**
+	 * Comprueva si el estado es final comparando el tamaño del ArrayList de visitas y el ArrayList de todas
+	 * las ciudades a visitar
+	 * @param State
+	 * @return boolean
+	 */
 	public boolean isFinalState(State estado)
 	{
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado);

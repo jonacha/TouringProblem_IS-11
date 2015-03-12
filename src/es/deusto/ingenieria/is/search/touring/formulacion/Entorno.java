@@ -41,13 +41,46 @@ public class Entorno extends State implements Cloneable{
 		aCiudades = ciudades;
 	 this.actual=inicio;
 	}
+	public ArrayList<Ciudad> getCiudadesVisitadas() {
+		return aCiudadesVisitadas;
+	}
+	public void setCiudadesVisitadas(ArrayList<Ciudad> aCiudadesVisitadas) {
+		this.aCiudadesVisitadas = aCiudadesVisitadas;
+	}
+	public Ciudad getActual() {
+		return actual;
+	}
+	public void setActual(Ciudad actual) {
+		this.actual = actual;
+	}
+
+	public double getDistanciaTotal() {
+		return distanciaTotal;
+	}
+	
+	public void setDistanciaTotal(double distanciaTotal) {
+		this.distanciaTotal = distanciaTotal;
+	} 
 	@Override
+	/**
+	 * @return String
+	 */
 	public String toString() {
 		return "Entorno [inicio=" + inicio + ", fin=" + fin + ", Ciudades="
 				+ aCiudades + "]";
 		//posteriormente adecuaremos el estrinpara que se ordenen segun las ciudades
 	}
 	@Override
+	/**
+	 * @param Object
+	 * @return boolean
+	 * Primero Condicion Compara si el objeto que le pasamos no es nulo y pertenece a un entorno
+	 * Segunda Condicion compara si la ciudad actual es la misma en el entorno y el ArrayList de ciudades visitadas 
+	 * tiene el mismo tamaño
+	 * El while es para recorrer todas las ciudades visitadas y ir comparandolas las del entorno los 2 entornos
+	 * Si alguna de estas concicciones no se cumple significa que los entornos no 
+	 * son iguales por lo tanto devuelve un FALSE si se cumple las tres Condiciones devuelve TRUE
+	 */
 	public boolean equals(Object ent) 
 	{
 		boolean enc = true;
@@ -86,15 +119,14 @@ public class Entorno extends State implements Cloneable{
 		}
 		return enc;
 	}
-	public ArrayList<Ciudad> getCiudadesVisitadas() {
-		return aCiudadesVisitadas;
-	}
-	public void setCiudadesVisitadas(ArrayList<Ciudad> aCiudadesVisitadas) {
-		this.aCiudadesVisitadas = aCiudadesVisitadas;
-	}
 
-	//clona el entorno actual
+
+	
 	@SuppressWarnings("unchecked")
+	/**
+	 * @return Object
+	 * Clona toda la imformaccion del entorno actual y devueve el nuevo entorno
+	 */
 	public Object clone()
 	{
 		Entorno clon = null;
@@ -112,29 +144,16 @@ public class Entorno extends State implements Cloneable{
 
 		return clon;
 	}
-	public Ciudad getActual() {
-		return actual;
-	}
-	public void setActual(Ciudad actual) {
-		this.actual = actual;
-	}
-	public double getDistanciaTotal() {
-		return distanciaTotal;
-	}
-	public void setDistanciaTotal(double distanciaTotal) {
-		this.distanciaTotal = distanciaTotal;
-	} 
 
 
-	public void rellenarCiudadesPotenciales()
-	{
 
-	}
 
+	
 	/**
 	 * Main
 	 * @param args
 	 */
+	
 	public static void main(String[]args)
 	{
 		Ciudad s = new Ciudad(1,4,"S");

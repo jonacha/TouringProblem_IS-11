@@ -33,11 +33,13 @@ public class Desplazarse extends Operator {
 	public void setDestino(Ciudad destino) {
 		this.destino = destino;
 	}
-
-	protected void MoverCiudad(){
-		//seleccionara el camino mas corto actualizando el orden del array list statico
-	}
-
+	@Override
+	/**  
+	 * @param Strate
+	 * @return boolean
+	 * Compruba si el estado es aplicable comprobando si la ciudad destino es una ciudad visitadas
+	 * Si esta en ciudades visitados devuelve un FALSE sino esta devuelve un TRUE 
+	 */
 	protected boolean isApplicable(State estado) {
 		Entorno entorno = (Entorno) estado;
 		//detectar visitadas, al resto puedo moverme
@@ -70,19 +72,28 @@ public class Desplazarse extends Operator {
 	}
 	
 	@Override
+	/**
+	 * toString que muestra la ciudad origen y la ciudad destino
+	 */
 	public String toString() {
 		return "Desplazarse [origen=" + origen + ", destino=" + destino + " Distancia="+this.getCost()+"]";
 	}
-
+	
+	/**
+	 * Calcular la distancia y guardala en coste mediante la formula de calcular la distancia entre dos puntos
+	 */
 	public void calcularCoste(){
+		 
 		this.setCost(Math.sqrt((Math.pow(destino.getx() - origen.getx(), 2)) + (Math.pow(destino.gety() - origen.gety(), 2))));
 	}
-	
-	/*Añade la nueva ciudad al array de visitadas y le da el nº del orden. Calcula la distancia de la ciudad actual con la ciudad destino
+	@Override
+	/**
+	 * @param Strate
+	 * @return State
+	 *Añade la nueva ciudad al array de visitadas y le da el nº del orden. Calcula la distancia de la ciudad actual con la ciudad destino
 	 * Muestra la ciudad origen y la destino para mostrar el recorrido.
 	 */
 	protected State effect(State estado) {
-		
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado).clone();
 	    calcularCoste();
 	    System.out.println(this); // muestra la distancia entre la ciudad origen y destino actuales que llevarán a cabo la acción de desplazarse
