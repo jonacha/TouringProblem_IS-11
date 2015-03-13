@@ -100,11 +100,11 @@ public class Desplazarse extends Operator {
 	    System.out.println(this); // muestra la distancia entre la ciudad origen y destino actuales que llevarán a cabo la acción de desplazarse
 		this.destino.setOrden(nuevoEntorno.getCiudadesVisitadas().size() + 1);
 		nuevoEntorno.getCiudadesVisitadas().add(this.destino);
-//		System.out.println("Ciudades visitadas: " + nuevoEntorno.getCiudadesVisitadas());
+		//		System.out.println("Ciudades visitadas: " + nuevoEntorno.getCiudadesVisitadas());
 		nuevoEntorno.setDistanciaTotal(nuevoEntorno.getDistanciaTotal() +this.getCost());
 		this.origen=(this.destino);
 		nuevoEntorno.setActual(this.destino);
-	//	nuevoEntorno.getActual().getCiudadesPosibles().remove(nuevoEntorno.getActual());
+		//	nuevoEntorno.getActual().getCiudadesPosibles().remove(nuevoEntorno.getActual());
 		this.destino=null;
 		return nuevoEntorno;
 	}

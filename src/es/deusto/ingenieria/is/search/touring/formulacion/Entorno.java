@@ -135,16 +135,9 @@ public class Entorno extends State implements Cloneable{
 
 		try {
 			clon = (Entorno) super.clone();
-			clon.inicio = (Ciudad) this.inicio.clone();
+//			clon.inicio = (Ciudad) this.inicio.clone();
 			clon.actual = (Ciudad) this.actual.clone();
-			clon.fin = (Ciudad) this.fin.clone();
-//			for(int i=0;i<aCiudades.size();i++){
-//				clon.aCiudades.add(this.aCiudades.get(i));
-//			}
-//			for(int i=0;i<aCiudades.size();i++){
-//				clon.aCiudadesVisitadas.add(this.aCiudadesVisitadas.get(i));
-//			}
-			clon.aCiudades = (ArrayList<Ciudad>) this.aCiudades.clone();
+//			clon.aCiudades = (ArrayList<Ciudad>) this.aCiudades.clone();
 			clon.aCiudadesVisitadas = (ArrayList<Ciudad>) this.aCiudadesVisitadas.clone();
 		} catch (CloneNotSupportedException e) {
 			System.err.println("% [ERROR] Entorno.clone(): " + e.getMessage());
@@ -178,7 +171,7 @@ public class Entorno extends State implements Cloneable{
 		aCiudades.add(a);
 		aCiudades.add(e);
 		Entorno ent = new Entorno(s, z, aCiudades); //Creación de un entorno de pruebas
-		System.out.println("Entorno1="+ent);
+		System.out.println("Entorno1= "+ent);
 		if(desp.isApplicable(ent)) //Comprobamos que la acción es aplicable
 		{ 
 			System.out.println(" ");
@@ -208,8 +201,10 @@ public class Entorno extends State implements Cloneable{
 		System.out.println();
 		System.out.println("Primer "+ent);
 		System.out.println();
+		
+		entclon = (Entorno) ent.clone(); //Clonamos el entorno
 		System.out.println("Segundo "+entclon);
-		//entclon = (Entorno) ent.clone(); //Clonamos el entorno
+		System.out.println(ent.getActual());
 		//System.out.println(entclon); // mostramos el contenido del entorno clon
 		if(ent.equals(entclon))//Como hemos clonado el entorno sera igual
 		{ 

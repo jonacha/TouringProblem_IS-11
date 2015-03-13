@@ -57,7 +57,7 @@ public class Ciudad {
 		try 
 		{
 			clon = (Ciudad) super.clone();
-//			clon.setNombre(nombre);
+            clon.setNombre(nombre);
 //			clon.setOrden(orden);
 //			clon.setx(x);
 //			clon.sety(y);
