@@ -223,14 +223,14 @@ public class Entorno extends State implements Cloneable{
 		System.out.println("Soy diferente");
 		}
 		TouringProblem tp=new TouringProblem();
-        if(!tp.isFinalState(ent)){
+        if(!tp.isFinalState(ent)){//Comprobamos si es estado final
         	System.out.println();
         	System.out.println("No es estado final");
         }
         else{
         	System.out.println("Es estado final");
         }
-        ent.getCiudadesVisitadas().add(e);
+        ent.getCiudadesVisitadas().add(e);//insertamos la nueva ciudad para que haya la misma cantidad de ciudades visitadas
         if(tp.isFinalState(ent)){
         	System.out.println();
         	System.out.println("Es estado final");
