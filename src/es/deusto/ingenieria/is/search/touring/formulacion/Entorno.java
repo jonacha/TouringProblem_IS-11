@@ -135,9 +135,10 @@ public class Entorno extends State implements Cloneable{
 
 		try {
 			clon = (Entorno) super.clone();
-//			clon.inicio = (Ciudad) this.inicio.clone();
+         	clon.inicio = this.inicio;
+         	clon.fin=this.fin;
 			clon.actual =this. actual;
-//			clon.aCiudades = (ArrayList<Ciudad>) this.aCiudades.clone();
+      		clon.aCiudades = (ArrayList<Ciudad>) this.aCiudades.clone();
 			clon.aCiudadesVisitadas = (ArrayList<Ciudad>) this.aCiudadesVisitadas.clone();
 		} catch (CloneNotSupportedException e) {
 			System.err.println("% [ERROR] Entorno.clone(): " + e.getMessage());
