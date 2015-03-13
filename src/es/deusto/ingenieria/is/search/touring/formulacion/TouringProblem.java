@@ -6,26 +6,29 @@ import es.deusto.ingenieria.is.search.formulation.State;
 public class TouringProblem extends Problem
 {
 
+	private Entorno entorno;
 	public TouringProblem() 
 	{
 		super();
+		gatherInitialPercepts();
 		this.createOperators();
 	}
 	
 	@Override
 	/**
-	 * Lectura del archivo XMLReader y creaccion del entorno
+	 * Lectura del archivo XMLReader y creacion del entorno
 	 *@return State
 	 */
 	public State gatherInitialPercepts() {
 		EntornoXMLReader entornoXMLReader = new EntornoXMLReader("data/InitialState.xml");
-		return entornoXMLReader.getState();
+		this.entorno = (Entorno) entornoXMLReader.getState();
+		return entorno;
 		
 	}
 	@Override
 	/**
-	 * Comprueva si el estado es final comparando el tamaño del ArrayList de visitas y el ArrayList de todas
-	 * las ciudades a visitar
+	 * Comprueba si el estado es final comparando el tamaño del ArrayList de visitas y el ArrayList de todas
+	 * las ciudades a visitar.
 	 * @param State
 	 * @return boolean
 	 */
@@ -42,8 +45,14 @@ public class TouringProblem extends Problem
 		}
 	}
 	
-	private void createOperators() {
-		this.addOperator(new Desplazarse());
+	/**
+	 * Crea un operador por cada ciudad existente en el entorno de acuerdo a la ciudad actual
+	 */
+	private void createOperators() 
+	{
+		for(int i = 0; i < entorno.getCiudades().size(); i++ )
+		{
+			this.addOperator(new Desplazarse(entorno.getCiudades().get(i)));
+		}	
 	}
-	
 }

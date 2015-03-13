@@ -23,6 +23,9 @@ public class EntornoXMLReader extends StateXMLReader {
 	}
 
 	@Override
+	/**
+	 * Insertamos en cada ciudad una lista con las las ciudades a las que puede ir, en principio todas menos a sí misma o la inicial
+	 */
 	public State getState() 
 	{ 
 		entorno.setCiudades(aCiudades);
