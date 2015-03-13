@@ -7,6 +7,7 @@ public class TouringProblem extends Problem
 {
 
 	private Entorno entorno;
+	
 	public TouringProblem() 
 	{
 		super();
@@ -14,6 +15,20 @@ public class TouringProblem extends Problem
 		this.createOperators();
 	}
 	
+	public Entorno getEntorno() 
+	{
+		return entorno;
+	}
+
+	/**
+	 * Sirve para actualizar el entorno y crear los nuevos operadores
+	 * @param entorno
+	 */
+	public void setEntorno(Entorno entorno) 
+	{
+		this.entorno = entorno;
+	}
+
 	@Override
 	/**
 	 * Lectura del archivo XMLReader y creacion del entorno
