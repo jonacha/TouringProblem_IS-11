@@ -29,7 +29,7 @@ public class TouringProblem extends Problem
 	 * @param State
 	 * @return boolean
 	 */
-	public boolean isFinalState(State estado)
+	public  boolean isFinalState(State estado)
 	{
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado);
 		if(nuevoEntorno.getCiudades().size() == nuevoEntorno.getCiudadesVisitadas().size())

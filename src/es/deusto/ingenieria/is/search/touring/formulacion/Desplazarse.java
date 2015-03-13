@@ -92,6 +92,7 @@ public class Desplazarse extends Operator {
 	 * @return State
 	 *Añade la nueva ciudad al array de visitadas y le da el nº del orden. Calcula la distancia de la ciudad actual con la ciudad destino
 	 * Muestra la ciudad origen y la destino para mostrar el recorrido.
+	 * Suma la distancia total al coste
 	 */
 	protected State effect(State estado) {
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado).clone();
@@ -99,7 +100,7 @@ public class Desplazarse extends Operator {
 	    System.out.println(this); // muestra la distancia entre la ciudad origen y destino actuales que llevarán a cabo la acción de desplazarse
 		this.destino.setOrden(nuevoEntorno.getCiudadesVisitadas().size() + 1);
 		nuevoEntorno.getCiudadesVisitadas().add(this.destino);
-		System.out.println("Ciudades visitadas: " + nuevoEntorno.getCiudadesVisitadas());
+//		System.out.println("Ciudades visitadas: " + nuevoEntorno.getCiudadesVisitadas());
 		nuevoEntorno.setDistanciaTotal(nuevoEntorno.getDistanciaTotal() +this.getCost());
 		this.origen=(this.destino);
 		nuevoEntorno.setActual(this.destino);

@@ -20,13 +20,13 @@ public class Ciudad {
 	public double getx() {
 		return x;
 	}
-	public void setx(int x) {
+	public void setx(double x) {
 		this.x = x;
 	}
 	public double gety() {
 		return y;
 	}
-	public void sety(int y) {
+	public void sety(double y) {
 		this.y = y;
 	}
 	public int getOrden() {
@@ -57,7 +57,14 @@ public class Ciudad {
 		try 
 		{
 			clon = (Ciudad) super.clone();
-			clon.ciudadesPosibles = (ArrayList<Ciudad>) this.ciudadesPosibles.clone();
+//			clon.setNombre(nombre);
+//			clon.setOrden(orden);
+//			clon.setx(x);
+//			clon.sety(y);
+//			for(int i=0;i<ciudadesPosibles.size();i++){
+//				clon.ciudadesPosibles.add(this.ciudadesPosibles.get(i));
+//			}
+		clon.ciudadesPosibles = (ArrayList<Ciudad>) this.ciudadesPosibles.clone();
 		} 
 		catch (CloneNotSupportedException e) 
 		{

@@ -1,6 +1,7 @@
 package es.deusto.ingenieria.is.search.touring.formulacion;
 
 import java.util.ArrayList;
+
 import es.deusto.ingenieria.is.search.formulation.State;
 
 public class Entorno extends State implements Cloneable{
@@ -122,11 +123,12 @@ public class Entorno extends State implements Cloneable{
 
 
 	
-	@SuppressWarnings("unchecked")
+
 	/**
 	 * @return Object
 	 * Clona toda la imformaccion del entorno actual y devueve el nuevo entorno
 	 */
+	@SuppressWarnings("unchecked")
 	public Object clone()
 	{
 		Entorno clon = null;
@@ -136,6 +138,12 @@ public class Entorno extends State implements Cloneable{
 			clon.inicio = (Ciudad) this.inicio.clone();
 			clon.actual = (Ciudad) this.actual.clone();
 			clon.fin = (Ciudad) this.fin.clone();
+//			for(int i=0;i<aCiudades.size();i++){
+//				clon.aCiudades.add(this.aCiudades.get(i));
+//			}
+//			for(int i=0;i<aCiudades.size();i++){
+//				clon.aCiudadesVisitadas.add(this.aCiudadesVisitadas.get(i));
+//			}
 			clon.aCiudades = (ArrayList<Ciudad>) this.aCiudades.clone();
 			clon.aCiudadesVisitadas = (ArrayList<Ciudad>) this.aCiudadesVisitadas.clone();
 		} catch (CloneNotSupportedException e) {
@@ -170,12 +178,13 @@ public class Entorno extends State implements Cloneable{
 		aCiudades.add(a);
 		aCiudades.add(e);
 		Entorno ent = new Entorno(s, z, aCiudades); //Creación de un entorno de pruebas
-	    System.out.println("Entorno1="+ent);
+		System.out.println("Entorno1="+ent);
 		if(desp.isApplicable(ent)) //Comprobamos que la acción es aplicable
-		{
+		{ 
+			System.out.println(" ");
 			System.out.println("Es aplicable");
-			ent = (Entorno) desp.effect(ent);
-
+			System.out.println(" ");
+			ent = (Entorno) desp.effect(ent);//Realizamos el effect da error
 		}
 		else
 		{
@@ -185,28 +194,46 @@ public class Entorno extends State implements Cloneable{
 		desp.setDestino(a);
 		if(desp.isApplicable(ent))//Comprobamos que la acción no es aplicable, su sale el interior de este if en pantalla está mal
 		{
-			System.out.println("No debo salir");
+		System.out.println("");
+		System.out.println("No debo salir");
 		}
 		else{
-			System.out.println("Correcto");
+		System.out.println("");
+		System.out.println("Correcto");
 		}
-
+		System.out.println();
 		System.out.println(ent); // mostramos el contenido del entorno de pruebas
-        ent=new Entorno(s,z,aCiudades);
+		ent=new Entorno(s,z,aCiudades);
 		Entorno entclon = new Entorno(s,z,aCiudades); // Creamos un entorno vacío en el que vamos a clonar el entorno de pruebas
-			System.out.println(ent);
-			System.out.println(entclon);
+		System.out.println();
+		System.out.println("Primer "+ent);
+		System.out.println();
+		System.out.println("Segundo "+entclon);
 		//entclon = (Entorno) ent.clone(); //Clonamos el entorno
 		//System.out.println(entclon); // mostramos el contenido del entorno clon
-		if(ent.equals(entclon))
-		{
-			System.out.println("Soy igual");
+		if(ent.equals(entclon))//Como hemos clonado el entorno sera igual
+		{ 
+		System.out.println();
+		System.out.println("Soy igual");
 		}
-		ent.getCiudadesVisitadas().add(s); // añadimos un cambio	
+		ent.getCiudadesVisitadas().add(s); // añadimos una ciudad visitadas
 		if(!ent.equals(entclon))
 		{
-			System.out.println("Soy diferente");
+		System.out.println();
+		System.out.println("Soy diferente");
 		}
-		
+		TouringProblem tp=new TouringProblem();
+        if(!tp.isFinalState(ent)){
+        	System.out.println();
+        	System.out.println("No es estado final");
+        }
+        else{
+        	System.out.println("Es estado final");
+        }
+        ent.getCiudadesVisitadas().add(e);
+        if(tp.isFinalState(ent)){
+        	System.out.println();
+        	System.out.println("Es estado final");
+        }
 	}
 }
