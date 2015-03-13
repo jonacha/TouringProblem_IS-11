@@ -57,11 +57,8 @@ public class Ciudad {
 		try 
 		{
 			clon = (Ciudad) super.clone();
-            clon.setNombre(nombre);
-//			clon.setOrden(orden);
-//			clon.setx(x);
-//			clon.sety(y);
-//			for(int i=0;i<ciudadesPosibles.size();i++){
+			clon.nombre=(String)this.nombre;
+//		for(int i=0;i<ciudadesPosibles.size();i++){
 //				clon.ciudadesPosibles.add(this.ciudadesPosibles.get(i));
 //			}
 		clon.ciudadesPosibles = (ArrayList<Ciudad>) this.ciudadesPosibles.clone();

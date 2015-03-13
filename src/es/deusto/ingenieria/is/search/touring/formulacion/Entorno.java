@@ -136,7 +136,7 @@ public class Entorno extends State implements Cloneable{
 		try {
 			clon = (Entorno) super.clone();
 //			clon.inicio = (Ciudad) this.inicio.clone();
-			clon.actual = (Ciudad) this.actual.clone();
+			clon.actual =this. actual;
 //			clon.aCiudades = (ArrayList<Ciudad>) this.aCiudades.clone();
 			clon.aCiudadesVisitadas = (ArrayList<Ciudad>) this.aCiudadesVisitadas.clone();
 		} catch (CloneNotSupportedException e) {
@@ -178,6 +178,8 @@ public class Entorno extends State implements Cloneable{
 			System.out.println("Es aplicable");
 			System.out.println(" ");
 			ent = (Entorno) desp.effect(ent);//Realizamos el effect da error
+			System.out.println();
+		System.out.println("Ciudades Visitadas"+ent.getCiudadesVisitadas()+"Distancia Total: "+ent.getDistanciaTotal());
 		}
 		else
 		{
@@ -204,7 +206,7 @@ public class Entorno extends State implements Cloneable{
 		
 		entclon = (Entorno) ent.clone(); //Clonamos el entorno
 		System.out.println("Segundo "+entclon);
-		System.out.println(ent.getActual());
+		System.out.println(entclon.getActual());
 		//System.out.println(entclon); // mostramos el contenido del entorno clon
 		if(ent.equals(entclon))//Como hemos clonado el entorno sera igual
 		{ 
