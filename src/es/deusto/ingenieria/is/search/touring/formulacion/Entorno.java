@@ -3,11 +3,11 @@ package es.deusto.ingenieria.is.search.touring.formulacion;
 import java.util.ArrayList;
 import es.deusto.ingenieria.is.search.formulation.State;
 
-public class Entorno extends State implements Cloneable
-{
+public class Entorno extends State implements Cloneable {
 	private Ciudad inicio = new Ciudad();
 	private Ciudad fin = new Ciudad();
 	private Ciudad actual = new Ciudad();
+	private ArrayList<Double> distanciaIndividual = new ArrayList<Double>();
 	private double distanciaTotal = 0;
 
 	private  ArrayList <Ciudad>aCiudades=new ArrayList<Ciudad>();
@@ -15,72 +15,73 @@ public class Entorno extends State implements Cloneable
 
 	public Entorno(){}
 
-	public Ciudad getInicio() 
-	{
+	public Ciudad getInicio() {
 		return inicio;
 	}
-	public void setInicio(Ciudad inicio) 
-	{
+	public void setInicio(Ciudad inicio) {
 		this.inicio = inicio;
 	}
-	public Ciudad getFin() 
-	{
+	public Ciudad getFin() {
 		return fin;
 	}
-	public ArrayList<Ciudad> getCiudades() 
-	{
+	public ArrayList<Ciudad> getCiudades() {
 		return aCiudades;
 	}
-	public void setCiudades(ArrayList<Ciudad> ciudades) 
-	{
+	public void setCiudades(ArrayList<Ciudad> ciudades) {
 		this.aCiudades =  ciudades;
 	}
-	public void setFin(Ciudad fin) 
-	{
+	public void setFin(Ciudad fin) {
 		this.fin = fin;
 	}
 
-	public Entorno(Ciudad inicio, Ciudad fin, ArrayList<Ciudad> ciudades) 
-	{
+	public Entorno(Ciudad inicio, Ciudad fin, ArrayList<Ciudad> ciudades) {
 		this.inicio = inicio;
 		this.fin = fin;
 		aCiudades = ciudades;
 		this.actual=inicio;
 	}
-	public ArrayList<Ciudad> getCiudadesVisitadas() 
-	{
+	public ArrayList<Ciudad> getCiudadesVisitadas() {
 		return aCiudadesVisitadas;
 	}
-	public void setCiudadesVisitadas(ArrayList<Ciudad> aCiudadesVisitadas) 
-	{
+	public void setCiudadesVisitadas(ArrayList<Ciudad> aCiudadesVisitadas) {
 		this.aCiudadesVisitadas = aCiudadesVisitadas;
 	}
-	public Ciudad getActual() 
-	{
+	public Ciudad getActual() {
 		return actual;
 	}
-	public void setActual(Ciudad actual) 
-	{
+	public void setActual(Ciudad actual) {
 		this.actual = actual;
 	}
 
-	public double getDistanciaTotal() 
-	{
+	public double getDistanciaTotal() {
 		return distanciaTotal;
 	}
 
-	public void setDistanciaTotal(double distanciaTotal)
-	{
+	public void setDistanciaTotal(double distanciaTotal) {
 		this.distanciaTotal = distanciaTotal;
 	} 
+	
+	public ArrayList<Double> getDistanciaIndividual() {
+		return distanciaIndividual;
+	}
+
+	public void setDistanciaIndividual(ArrayList<Double> distanciaIndividual) {
+		this.distanciaIndividual = distanciaIndividual;
+	}
+	
 	@Override
 	/**
 	 * @return String
 	 */
-	public String toString() 
-	{
-		return "Entorno [inicio=" + inicio + ", fin=" + fin + ", Ciudades="
-				+ aCiudades + "]";
+	public String toString() {
+		String devuelto = inicio.getNombre()+" hasta "+aCiudadesVisitadas.get(0).getNombre() + " Distancia: " + distanciaIndividual.get(0) + "\n";
+		for(int i = 1; i < aCiudadesVisitadas.size(); i++) {
+			devuelto = devuelto + aCiudadesVisitadas.get(i-1).getNombre() + " hasta "+ aCiudadesVisitadas.get(i).getNombre() + " Distancia: " + distanciaIndividual.get(i) + "\n";
+		}
+		devuelto= devuelto + aCiudadesVisitadas.get(6).getNombre()+" Hasta "+ fin.getNombre() + " Distancia: " + distanciaIndividual.get(7) +"\nDistancia Total: " + distanciaTotal;
+		return devuelto;
+
+		//return "Entorno [inicio=" + inicio + ", fin=" + fin + ", \nCiudades=" + aCiudadesVisitadas + "Con coste total: " + distanciaTotal + "]";
 	}
 	@Override
 	/**
@@ -92,40 +93,24 @@ public class Entorno extends State implements Cloneable
 	 * Si alguna de estas condiciones no se cumple significa que los entornos no son iguales por lo tanto 
 	 * devuelve un FALSE si se cumple las tres Condiciones devuelve TRUE
 	 */
-	public boolean equals(Object ent) 
-	{
+	public boolean equals(Object ent) {
 		boolean enc = true;
 		int i = 0;
-		if(ent != null && ent instanceof Entorno)
-		{
+		if(ent != null && ent instanceof Entorno) {
 			Entorno e = (Entorno) ent;
-			if(e.getActual().getNombre().equals(this.actual.getNombre())
-					&&e.getActual().getx()==this.actual.getx()&&e.getActual().gety()==this.actual.gety() 
-					&&  e.getCiudadesVisitadas().size()==this.aCiudadesVisitadas.size()){
-
-
-				while(enc && i < e.getCiudadesVisitadas().size())
-				{
-					if(e.getCiudadesVisitadas().get(i).getNombre().equals(this.aCiudadesVisitadas.get(i).getNombre())
-							&&e.getCiudadesVisitadas().get(i).getx()==this.aCiudades.get(i).getx()
-							&&e.getCiudadesVisitadas().get(i).gety()==this.aCiudades.get(i).gety())
-					{
+			if(e.getActual().getNombre().equals(this.actual.getNombre()) && e.getCiudadesVisitadas().size()==this.aCiudadesVisitadas.size()) {
+				while(enc && i < e.getCiudadesVisitadas().size()) {
+					if(e.getCiudadesVisitadas().get(i).getNombre().equals(this.aCiudadesVisitadas.get(i).getNombre())) {
 						i++;
-					}
-					else
-					{
-						enc=false;//para la condicion del array si no se cumple se combierte en false
+					} else{
+						enc=false; //para la condicion del array si no se cumple se combierte en false
 					}
 				}
+			}else {
+				enc=false; //para la condicion de tamaño de ciudad visitad,y la ciudad actual
 			}
-			else
-			{
-				enc=false;//para la condicion de tamaño de ciudad visitad,y la ciudad actual
-			}
-		}
-		else
-		{
-			enc=false;//para comprobar si es nulo
+		} else {
+			enc=false; //para comprobar si es nulo
 		}
 		return enc;
 	}
@@ -135,16 +120,13 @@ public class Entorno extends State implements Cloneable
 	 * @return Object
 	 */
 	@SuppressWarnings("unchecked")
-	public Object clone()
-	{
+	public Object clone() {
 		Entorno clon = null;
 
-		try 
-		{
+		try {
 			clon = (Entorno) super.clone();
-			clon.inicio = this.inicio;
-			clon.fin=this.fin;
-			clon.actual =this. actual;
+			clon.actual = this. actual;
+			clon.distanciaIndividual = (ArrayList<Double>) this.distanciaIndividual.clone();
 			clon.aCiudades = (ArrayList<Ciudad>) this.aCiudades.clone();
 			clon.aCiudadesVisitadas = (ArrayList<Ciudad>) this.aCiudadesVisitadas.clone();
 		} catch (CloneNotSupportedException e) {
@@ -152,91 +134,5 @@ public class Entorno extends State implements Cloneable
 		}
 
 		return clon;
-	}
-
-	/**
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * Main
-	 * @param args
-	 */
-
-	public static void main(String[]args)
-	{
-		Ciudad s = new Ciudad(1,4,"S");
-		Ciudad a = new Ciudad(3,2,"A");
-		Ciudad e = new Ciudad(11,1,"E");
-		Ciudad z = new Ciudad(15,5,"Z");
-		// Hemos decidido no rellenar en Array de ciudades posibles en el main en esta entrega
-		Desplazarse desp = new Desplazarse(a);//Creacion de desplazarse
-		ArrayList<Ciudad> aCiudades = new ArrayList<Ciudad>();
-		aCiudades.add(a);
-		aCiudades.add(e);
-		Entorno ent = new Entorno(s, z, aCiudades); //Creación de un entorno de pruebas
-		System.out.println("Entorno1 = "+ent);
-		
-		if(desp.isApplicable(ent)) //Comprobamos que la acción es aplicable
-		{ 
-			System.out.println("\nEs aplicable\n");
-			ent = (Entorno) desp.effect(ent);//Realizamos el effect da error
-			System.out.println("\nCiudades Visitadas: "+ent.getCiudadesVisitadas()+" Distancia Total: "+ent.getDistanciaTotal());
-		}
-		else
-		{
-			System.out.println("No soy aplicable");
-		}
-		
-		desp.setDestino(a);
-		
-		if(desp.isApplicable(ent))//Comprobamos que la acción no es aplicable, su sale el interior de este if en pantalla está mal
-		{
-			System.out.println("\nNo debo salir");
-		}
-		else
-		{
-			System.out.println("\nCorrecto");
-		}
-		
-		System.out.println(ent); // mostramos el contenido del entorno de pruebas
-		ent=new Entorno(s,z,aCiudades);
-		Entorno entclon = new Entorno(); // Creamos un entorno vacío en el que vamos a clonar el entorno de pruebas
-		System.out.println();
-		System.out.println("Primer "+ent);
-		System.out.println();
-
-		entclon = (Entorno) ent.clone(); //Clonamos el entorno
-		System.out.println("Segundo "+entclon);
-		if(ent.equals(entclon))//Como hemos clonado el entorno sera igual
-		{ 
-			System.out.println("\nSoy igual");
-		}
-		ent.getCiudadesVisitadas().add(s); // añadimos una ciudad visitadas
-		if(!ent.equals(entclon))
-		{
-			System.out.println("\nSoy diferente");
-		}
-		TouringProblem tp= new TouringProblem();
-		for(int i = 0; i < tp.getOperators().size(); i++) // Mostramos por pantalla todos los operadores existentes, 7 en total
-		{
-			// De esta manera creamos operaciones desde la ciudad actual (que en este caso es la ciudad inicial) hasta las otras ciudades
-			System.out.println("Operación ciudad: " + tp.getOperators().get(i).getName()); 
-			}
-		
-		if(!tp.isFinalState(ent))//Comprobamos si es estado final
-		{
-			System.out.println("\nNo es estado final");
-		}
-		else
-		{
-			System.out.println("\nEs estado final");
-		}
-		ent.getCiudadesVisitadas().add(e); //insertamos la nueva ciudad para que haya la misma cantidad de ciudades visitadas
-		if(tp.isFinalState(ent)) // este es el entorno de pruebas
-		{
-			System.out.println("\nEs estado final");
-		}
 	}
 }

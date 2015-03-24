@@ -60,6 +60,7 @@ public class EntornoXMLReader extends StateXMLReader {
 				this.posX = Double.parseDouble(attributes.getValue("x"));
 				this.posY = Double.parseDouble(attributes.getValue("y"));
 				entorno.setInicio(new Ciudad(posX,posY,nombre));
+				entorno.setActual(new Ciudad(posX,posY,nombre));
 			} 
 			else if (qName.equals("is:end") ){ 
 				this.nombre = attributes.getValue("nombre");
