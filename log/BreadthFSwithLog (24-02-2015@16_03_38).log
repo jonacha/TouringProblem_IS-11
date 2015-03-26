@@ -1,8 +1,0 @@
-Log: 'SearchLog' (24-feb-2015 / 16:03:38)
-
-( Robot:LEFT/L:dirty/R:dirty@null )
-( Robot:LEFT/L:clean/R:dirty@Robot:LEFT/L:dirty/R:dirty ## Robot:RIGHT/L:dirty/R:dirty@Robot:LEFT/L:dirty/R:dirty )
-( Robot:RIGHT/L:dirty/R:dirty@Robot:LEFT/L:dirty/R:dirty ## Robot:RIGHT/L:clean/R:dirty@Robot:LEFT/L:clean/R:dirty )
-( Robot:RIGHT/L:clean/R:dirty@Robot:LEFT/L:clean/R:dirty ## Robot:RIGHT/L:dirty/R:clean@Robot:RIGHT/L:dirty/R:dirty )
-( Robot:RIGHT/L:dirty/R:clean@Robot:RIGHT/L:dirty/R:dirty ## Robot:RIGHT/L:clean/R:clean@Robot:RIGHT/L:clean/R:dirty )
-( Robot:RIGHT/L:clean/R:clean@Robot:RIGHT/L:clean/R:dirty ## Robot:LEFT/L:dirty/R:clean@Robot:RIGHT/L:dirty/R:clean )

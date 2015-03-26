@@ -77,13 +77,12 @@ public class Desplazarse extends Operator {
 	   // muestra la distancia entre la ciudad origen y destino actuales que llevarán a cabo la acción de desplazarse
 		nuevoEntorno.getCiudadesVisitadas().add(this.destino);
 		nuevoEntorno.setDistanciaTotal(nuevoEntorno.getDistanciaTotal() +this.getCost());
-		
+
 		if(!this.isApplicable(nuevoEntorno)){
 			nuevoEntorno.getDistanciaIndividual().add(this.getCost());
 			nuevoEntorno.setActual(this.destino);
 			return nuevoEntorno;
-		}
-		else{
+		}else{
 			return estado;
 		}
 	}

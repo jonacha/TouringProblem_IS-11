@@ -51,7 +51,7 @@ public class TouringProblem extends Problem {
 	 * @param State
 	 * @return boolean
 	 */
-	public  boolean isFinalState(State estado) {
+	public boolean isFinalState(State estado) {
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado);
 		if(nuevoEntorno.getCiudades().size() == nuevoEntorno.getCiudadesVisitadas().size()) {
 			double distancia=Math.sqrt((Math.pow(nuevoEntorno.getActual().getx() - nuevoEntorno.getFin().getx(), 2)) + (Math.pow(nuevoEntorno.getActual().gety() - entorno.getFin().gety(), 2)));
@@ -70,17 +70,15 @@ public class TouringProblem extends Problem {
 		for(int i = 0; i < entorno.getCiudades().size(); i++ ) {
 			if(!entorno.getCiudades().get(i).getNombre().equals(entorno.getActual().getNombre())){
 				this.addOperator(new Desplazarse(entorno.getCiudades().get(i)));
-			}	
+			}
 		}
 	}
 
-	public void solve(SearchMethod searchMethod) {
+	public void solve(SearchMethod searchMethod) {		
 		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss.S");
 		Date beginDate = GregorianCalendar.getInstance().getTime();
 		System.out.println("\n* Start '" + searchMethod.getClass().getSimpleName() + "' (" + formatter.format(beginDate) + ")");				
-
 		Node finalNode = searchMethod.search(this, this.getInitialStates().get(0));
-		
 		Date endDate = GregorianCalendar.getInstance().getTime();		
 		System.out.println("* End   '" + searchMethod.getClass().getSimpleName() + "' (" + formatter.format(endDate) + ")");
 		
@@ -92,7 +90,7 @@ public class TouringProblem extends Problem {
 		long hours = minutes / 60;
 		minutes %= 60;
 		
-		String time = "\n* Serach lasts: ";
+		String time = "* Serach lasts: ";
 		time += (hours > 0) ? hours + " h " : " ";
 		time += (minutes > 0) ? minutes + " m " : " ";
 		time += (seconds > 0) ? seconds + "s " : " ";
@@ -105,7 +103,7 @@ public class TouringProblem extends Problem {
 			List<String> operators = new ArrayList<String>();
 			searchMethod.solutionPath(finalNode, operators);
 			searchMethod.createSolutionLog(operators);			
-			System.out.println("- Final state:\n" + finalNode.getState());
+			System.out.println("- Final state:" + finalNode.getState());
 		} else {
 			System.out.println("\n- Unable to find the solution!     :(");
 		}

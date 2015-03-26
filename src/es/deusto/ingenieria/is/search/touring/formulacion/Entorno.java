@@ -1,6 +1,9 @@
 package es.deusto.ingenieria.is.search.touring.formulacion;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
 import es.deusto.ingenieria.is.search.formulation.State;
 
 public class Entorno extends State implements Cloneable {
@@ -28,18 +31,13 @@ public class Entorno extends State implements Cloneable {
 		return aCiudades;
 	}
 	public void setCiudades(ArrayList<Ciudad> ciudades) {
+		Collections.shuffle(ciudades);
 		this.aCiudades =  ciudades;
 	}
 	public void setFin(Ciudad fin) {
 		this.fin = fin;
 	}
 
-	public Entorno(Ciudad inicio, Ciudad fin, ArrayList<Ciudad> ciudades) {
-		this.inicio = inicio;
-		this.fin = fin;
-		aCiudades = ciudades;
-		this.actual=inicio;
-	}
 	public ArrayList<Ciudad> getCiudadesVisitadas() {
 		return aCiudadesVisitadas;
 	}
@@ -74,14 +72,15 @@ public class Entorno extends State implements Cloneable {
 	 * @return String
 	 */
 	public String toString() {
-		String devuelto="Entorno [inicio=" + inicio + ", fin=" + fin+"\nCiudades=" + aCiudadesVisitadas+" ]+\n";
-		if(aCiudadesVisitadas.size()!=0){
-		 devuelto = devuelto+inicio.getNombre()+" hasta "+aCiudadesVisitadas.get(0).getNombre() + " Distancia: " + distanciaIndividual.get(0) + "\n";
-		for(int i = 1; i < aCiudadesVisitadas.size(); i++) {
-			devuelto = devuelto + aCiudadesVisitadas.get(i-1).getNombre() + " hasta "+ aCiudadesVisitadas.get(i).getNombre() + " Distancia: " + distanciaIndividual.get(i) + "\n";
-		}
-		devuelto= devuelto + aCiudadesVisitadas.get(6).getNombre()+" Hasta "+ fin.getNombre() + " Distancia: " + distanciaIndividual.get(7) +"\nDistancia Total: " + distanciaTotal;
-		
+//		String devuelto="Entorno [inicio=" + inicio + ", fin=" + fin+"\nCiudades=" + aCiudadesVisitadas+" ]+\n";
+        String devuelto=actual.getNombre();
+		if(aCiudadesVisitadas.size()==aCiudades.size()){
+			 devuelto="";
+			devuelto = devuelto+inicio.getNombre()+" hasta "+aCiudadesVisitadas.get(0).getNombre() + " Distancia: " + distanciaIndividual.get(0) + "\n";
+			for(int i = 1; i < aCiudadesVisitadas.size(); i++) {
+				devuelto = devuelto + aCiudadesVisitadas.get(i-1).getNombre() + " hasta "+ aCiudadesVisitadas.get(i).getNombre() + " Distancia: " + distanciaIndividual.get(i) + "\n";	
+			}
+			devuelto= devuelto + aCiudadesVisitadas.get(aCiudadesVisitadas.size() - 1).getNombre()+" Hasta "+ fin.getNombre() + " Distancia: " + distanciaIndividual.get(distanciaIndividual.size() - 1) +"\nDistancia Total: " + distanciaTotal;
 		}
 		return devuelto;
 		//return "Entorno [inicio=" + inicio + ", fin=" + fin + ", \nCiudades=" + aCiudadesVisitadas + "Con coste total: " + distanciaTotal + "]";
