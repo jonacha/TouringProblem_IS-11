@@ -80,7 +80,7 @@ public class Entorno extends State implements Cloneable {
 			for(int i = 1; i < aCiudadesVisitadas.size(); i++) {
 				devuelto = devuelto + aCiudadesVisitadas.get(i-1).getNombre() + " hasta "+ aCiudadesVisitadas.get(i).getNombre() + " Distancia: " + distanciaIndividual.get(i) + "\n";	
 			}
-			devuelto= devuelto + aCiudadesVisitadas.get(aCiudadesVisitadas.size() - 1).getNombre()+" Hasta "+ fin.getNombre() + " Distancia: " + distanciaIndividual.get(distanciaIndividual.size() - 1) +"\nDistancia Total: " + distanciaTotal;
+			devuelto= devuelto + aCiudadesVisitadas.get(aCiudadesVisitadas.size() - 1).getNombre()+" Hasta "+ fin.getNombre() + " Distancia: " + distanciaIndividual.get(distanciaIndividual.size() - 1) +"\nDistancia Total: " + distanciaTotal+"\n";
 		}
 		return devuelto;
 		//return "Entorno [inicio=" + inicio + ", fin=" + fin + ", \nCiudades=" + aCiudadesVisitadas + "Con coste total: " + distanciaTotal + "]";

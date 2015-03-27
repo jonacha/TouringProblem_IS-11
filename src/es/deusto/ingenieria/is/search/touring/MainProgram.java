@@ -13,9 +13,9 @@ public class MainProgram {
 			problem.addInitialState(problem.gatherInitialPercepts());
 			
 			System.out.println("Depth First");
-			problem.solve(DepthFSwithLog.getInstance());
+			//problem.solve(DepthFSwithLog.getInstance());
 			System.out.println("Breadth First");
-			problem.solve(BreadthFSwithLog.getInstance());
+			//problem.solve(BreadthFSwithLog.getInstance());
 			System.out.println("Best First");
 			problem.solve(new BestFSwithLog(new EvaluacionDeMovimientos()));
 			

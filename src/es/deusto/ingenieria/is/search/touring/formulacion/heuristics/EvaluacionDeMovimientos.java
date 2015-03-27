@@ -38,7 +38,7 @@ public class EvaluacionDeMovimientos extends EvaluationFunction {
  else{
 	 
  
- return distanciafin;
+ return distancia;
  }}
 
 }
