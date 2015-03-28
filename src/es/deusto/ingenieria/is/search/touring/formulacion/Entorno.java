@@ -2,8 +2,6 @@ package es.deusto.ingenieria.is.search.touring.formulacion;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
-
 import es.deusto.ingenieria.is.search.formulation.State;
 
 public class Entorno extends State implements Cloneable {
@@ -69,10 +67,11 @@ public class Entorno extends State implements Cloneable {
 	
 	@Override
 	/**
+	 * Muestra por pantalla toda la ruta elegida por el algoritmo, pero tambien se guarda en los TXT del Log, si se quiere ver por pantalla dejarlo así
+	 * Si se desea que el TXT ocupe poco se debe comentar todo el if del toString, pero no aparecerán los datos por pantalla.
 	 * @return String
 	 */
 	public String toString() {
-//		String devuelto="Entorno [inicio=" + inicio + ", fin=" + fin+"\nCiudades=" + aCiudadesVisitadas+" ]+\n";
         String devuelto=actual.getNombre();
 		if(aCiudadesVisitadas.size()==aCiudades.size()){
 			 devuelto="";
@@ -83,14 +82,13 @@ public class Entorno extends State implements Cloneable {
 			devuelto= devuelto + aCiudadesVisitadas.get(aCiudadesVisitadas.size() - 1).getNombre()+" Hasta "+ fin.getNombre() + " Distancia: " + distanciaIndividual.get(distanciaIndividual.size() - 1) +"\nDistancia Total: " + distanciaTotal+"\n";
 		}
 		return devuelto;
-		//return "Entorno [inicio=" + inicio + ", fin=" + fin + ", \nCiudades=" + aCiudadesVisitadas + "Con coste total: " + distanciaTotal + "]";
 	}
 	@Override
 	/**
 	 * @param Object
 	 * @return boolean
 	 * Primera condición compara si el objeto que le pasamos no es nulo y pertenece a un entorno
-	 * Segunda condición compara si la ciudad actual es la misma en el entorno y el ArrayList de ciudades visitadas tiene el mismo tamaño
+	 * Segunda condición compara si la ciudad actual es la misma en el entorno y el ArrayList de ciudades visitadas tiene el mismo tamaño.
 	 * El while es para recorrer todas las ciudades visitadas e ir comparándo las del entorno 1 con el entorno 2
 	 * Si alguna de estas condiciones no se cumple significa que los entornos no son iguales por lo tanto 
 	 * devuelve un FALSE si se cumple las tres Condiciones devuelve TRUE
@@ -109,10 +107,10 @@ public class Entorno extends State implements Cloneable {
 					}
 				}
 			}else {
-				enc=false; //para la condicion de tamaño de ciudad visitad,y la ciudad actual
+				enc = false; //para la condicion de tamaño de ciudad visitad,y la ciudad actual
 			}
 		} else {
-			enc=false; //para comprobar si es nulo
+			enc = false; //para comprobar si es nulo
 		}
 		return enc;
 	}

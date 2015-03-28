@@ -66,9 +66,13 @@ public class Desplazarse extends Operator {
 	/**
 	 * @param Strate
 	 * @return State
-	 *Añade la nueva ciudad al array de visitadas y le da el nº del orden. Calcula la distancia de la ciudad actual con la ciudad destino
-	 * Muestra la ciudad origen y la destino para mostrar el recorrido.
-	 * Suma la distancia total al coste
+	 * Añade la nueva ciudad al array de visitadas.
+	 * Comprueba si el desplazamiento es aplicable. En tal caso:
+	 * 		Calcula la distancia de la ciudad actual con la ciudad destino
+	 * 		Muestra la ciudad origen y la destino para mostrar el recorrido.
+	 * 		Suma la distancia total al coste
+	 * 		Devuelve el nuevo entorno.
+	 * Si no es aplicable devuelve el entorno anterior.
 	 */
 	protected State effect(State estado) {
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado).clone();
@@ -76,9 +80,9 @@ public class Desplazarse extends Operator {
 	    calcularCoste(nuevoEntorno);
 	   // muestra la distancia entre la ciudad origen y destino actuales que llevarán a cabo la acción de desplazarse
 		nuevoEntorno.getCiudadesVisitadas().add(this.destino);
-		nuevoEntorno.setDistanciaTotal(nuevoEntorno.getDistanciaTotal() +this.getCost());
 
 		if(!this.isApplicable(nuevoEntorno)){
+			nuevoEntorno.setDistanciaTotal(nuevoEntorno.getDistanciaTotal() + this.getCost());
 			nuevoEntorno.getDistanciaIndividual().add(this.getCost());
 			nuevoEntorno.setActual(this.destino);
 			return nuevoEntorno;
