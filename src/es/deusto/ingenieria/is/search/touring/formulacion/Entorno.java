@@ -2,6 +2,7 @@ package es.deusto.ingenieria.is.search.touring.formulacion;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
 import es.deusto.ingenieria.is.search.formulation.State;
 
 public class Entorno extends State implements Cloneable {

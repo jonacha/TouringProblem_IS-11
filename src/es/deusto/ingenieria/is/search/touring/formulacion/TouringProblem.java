@@ -12,7 +12,7 @@ import es.deusto.ingenieria.is.search.formulation.Problem;
 import es.deusto.ingenieria.is.search.formulation.State;
 
 public class TouringProblem extends Problem {
-
+	// Nos dijiste que eliminaramos esta variable, pero no sabemos como.
 	private Entorno entorno; 
 
 	public TouringProblem() {
@@ -81,7 +81,7 @@ public class TouringProblem extends Problem {
 		Node finalNode = searchMethod.search(this, this.getInitialStates().get(0));
 		Date endDate = GregorianCalendar.getInstance().getTime();		
 		System.out.println("* End   '" + searchMethod.getClass().getSimpleName() + "' (" + formatter.format(endDate) + ")");
-		
+
 		long miliseconds = (int) Math.abs(beginDate.getTime() - endDate.getTime());
 		long seconds = miliseconds / 1000;
 		miliseconds %= 1000;		
@@ -89,15 +89,15 @@ public class TouringProblem extends Problem {
 		seconds %= 60;
 		long hours = minutes / 60;
 		minutes %= 60;
-		
+
 		String time = "* Serach lasts: ";
 		time += (hours > 0) ? hours + " h " : " ";
 		time += (minutes > 0) ? minutes + " m " : " ";
 		time += (seconds > 0) ? seconds + "s " : " ";
 		time += (miliseconds > 0) ? miliseconds + "ms " : " ";
-		
+
 		System.out.println(time);
-		
+
 		if (finalNode != null) {
 			System.out.println("\n- Solution found!     :)");
 			List<String> operators = new ArrayList<String>();
