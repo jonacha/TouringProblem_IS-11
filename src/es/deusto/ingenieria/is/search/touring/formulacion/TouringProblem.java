@@ -13,7 +13,6 @@ import es.deusto.ingenieria.is.search.formulation.State;
 
 public class TouringProblem extends Problem {
 	// Nos dijiste que eliminaramos esta variable, pero no sabemos como.
-	private Entorno entorno; 
 
 	public TouringProblem() {
 		super();
@@ -21,17 +20,7 @@ public class TouringProblem extends Problem {
 		this.createOperators();
 	}
 
-	public Entorno getEntorno() {
-		return entorno;
-	}
 
-	/**
-	 * Sirve para actualizar el entorno y crear los nuevos operadores
-	 * @param entorno
-	 */
-	public void setEntorno(Entorno entorno) {
-		this.entorno = entorno;
-	}
 
 	@Override
 	/**
@@ -40,7 +29,9 @@ public class TouringProblem extends Problem {
 	 */
 	public State gatherInitialPercepts() {
 		EntornoXMLReader entornoXMLReader = new EntornoXMLReader("data/InitialState.xml");
-		this.entorno = (Entorno) entornoXMLReader.getState();
+		Entorno entorno = (Entorno) entornoXMLReader.getState();
+		this.addFinalState(entorno);
+		this.addInitialState(entorno);
 		return entorno;
 
 	}
@@ -52,6 +43,8 @@ public class TouringProblem extends Problem {
 	 * @return boolean
 	 */
 	public boolean isFinalState(State estado) {
+		
+		Entorno entorno=(Entorno) this.getFinalStates().get(0);
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado);
 		if(nuevoEntorno.getCiudades().size() == nuevoEntorno.getCiudadesVisitadas().size()) {
 			double distancia=Math.sqrt((Math.pow(nuevoEntorno.getActual().getx() - nuevoEntorno.getFin().getx(), 2)) + (Math.pow(nuevoEntorno.getActual().gety() - entorno.getFin().gety(), 2)));
@@ -67,6 +60,7 @@ public class TouringProblem extends Problem {
 	 * Crea un operador por cada ciudad existente en el entorno de acuerdo a la ciudad actual
 	 */
 	private void createOperators() {
+		Entorno entorno=(Entorno) this.getInitialStates().get(0);
 		for(int i = 0; i < entorno.getCiudades().size(); i++ ) {
 			if(!entorno.getCiudades().get(i).getNombre().equals(entorno.getActual().getNombre())){
 				this.addOperator(new Desplazarse(entorno.getCiudades().get(i)));
@@ -99,6 +93,7 @@ public class TouringProblem extends Problem {
 		System.out.println(time);
 
 		if (finalNode != null) {
+			this.addFinalState(finalNode.getState());
 			System.out.println("\n- Solution found!     :)");
 			List<String> operators = new ArrayList<String>();
 			searchMethod.solutionPath(finalNode, operators);
