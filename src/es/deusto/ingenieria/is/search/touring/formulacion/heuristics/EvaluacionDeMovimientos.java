@@ -27,4 +27,5 @@ public class EvaluacionDeMovimientos extends EvaluationFunction {
 		distanciafin = d.getCost();
 		return distanciafin;
 	}
+	
 }

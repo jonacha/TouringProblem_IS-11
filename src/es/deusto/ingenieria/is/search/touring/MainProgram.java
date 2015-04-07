@@ -7,6 +7,7 @@ import es.deusto.ingenieria.is.search.algorithms.heuristic.BestFS;
 import es.deusto.ingenieria.is.search.algorithms.heuristic.BestFSwithLog;
 import es.deusto.ingenieria.is.search.touring.formulacion.TouringProblem;
 import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.CosteUniforme;
+import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.CosteUniformeGrafSeach;
 import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.EvaluacionDeMovimientos;
 
 public class MainProgram {
@@ -34,6 +35,7 @@ public class MainProgram {
 //			problem.solve(new BestFS(new EvaluacionDeMovimientos())); // resuelve el recorrido sin registrar los datos en un txt algoritmo Best First.
 	//		problem.solve(new BestFSwithLog(new EvaluacionDeMovimientos())); // resuelve el recorrido registrando los datos en un txt algoritmo Best First.
 		problem.solve(CosteUniforme.getInstance());	
+		//problem .solve(CosteUniformeGrafSeach.getInstance());
 		} catch (Exception ex) {
 			System.err.println("% [Main Program] Error: " + ex.getMessage());
 			ex.printStackTrace();
