@@ -97,7 +97,7 @@ public class Entorno extends State implements Cloneable {
 	public boolean equals(Object ent) {
 		boolean enc = true;
 		int i = 0;
-		if(ent != null && ent instanceof Entorno) {
+		if(ent != null && ent instanceof Entorno&&this.aCiudadesVisitadas!=null&&this.getActual()!=null) {
 			Entorno e = (Entorno) ent;
 			if(e.getActual().getNombre().equals(this.actual.getNombre()) && e.getCiudadesVisitadas().size()==this.aCiudadesVisitadas.size()) {
 				while(enc && i < e.getCiudadesVisitadas().size()) {

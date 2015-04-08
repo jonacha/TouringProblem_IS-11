@@ -12,6 +12,8 @@ import es.deusto.ingenieria.is.search.algorithms.blind.BreadthFS;
 import es.deusto.ingenieria.is.search.algorithms.log.SearchLog;
 import es.deusto.ingenieria.is.search.formulation.Problem;
 import es.deusto.ingenieria.is.search.formulation.State;
+import es.deusto.ingenieria.is.search.touring.formulacion.Ciudad;
+import es.deusto.ingenieria.is.search.touring.formulacion.Desplazarse;
 import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 
 	/**
@@ -89,7 +91,7 @@ import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 //			SearchLog searchLog = this.createSearchLog();
 			
 			//Loop until a solution is found or the queue empties
-			while (!solutionFound && !frontier.isEmpty()) {			
+			while (!solutionFound && !frontier.isEmpty()) {	
 				//Remove the first node from the queue.
 				firstNode = frontier.remove(0);
 				//If the first node contains a problem's final state, then it's solved
@@ -127,6 +129,7 @@ import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 							}
 						}
 					}
+				
 			}}
 
 			// If the problem is solved
@@ -140,5 +143,124 @@ import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 			}
 		
 	}
+		public double Manhattan(Node node) {
+			if(node!=null){
+			Entorno entorno = (Entorno) node.getState(); 
+			double dx=(entorno.getActual().getx()-entorno.getFin().getx());
+			double dy=(entorno.getActual().gety()-entorno.getFin().gety());
+		
+			Entorno movimiento[]=new Entorno[4];
+			for(int i=0;i<4;i++){
+				movimiento[i]=entorno;
+			}
+			double Distancia[]=new double[4];
+			for(int i =0;i<4;i++){
+		    Ciudad actual=new Ciudad();		
+			if(i==0){
+				actual.setx(entorno.getActual().getx()+1);
+				actual.sety(entorno.getActual().gety());
+				}
+				else if(i==1){
+					actual.setx(entorno.getActual().getx()-1);
+					actual.sety(entorno.getActual().gety());	
+				}
+				else if(i==2){
+					actual.setx(entorno.getActual().getx());
+					actual.sety(entorno.getActual().gety()-1);
+				}
+				else if(i==3){
+					actual.setx(entorno.getActual().getx());
+					actual.sety(entorno.getActual().gety()+1);
+				}
+				
+				movimiento[i].setActual(actual);
+			    movimiento[i].setFin(entorno.getFin());
+			}
+			for(int i=0;i<4;i++){
+				Desplazarse d = new Desplazarse(movimiento[i].getFin());
+				d.calcularCoste(movimiento[i]);	
+				Distancia[i]=d.getCost();
+			}
+			double d=Distancia[0];
+		
+				for(int j=1;j<4;j++){
+					if(d>Distancia[j]){
+						d=Distancia[j];
+					}
+				}
+			return d*(dx+dy);
+		}else{
+			return 0;
+		}
+			}
+	
+		public double Chebyshev(Node node) {
+			Entorno entorno = (Entorno) node.getState(); 
+			double dx=(entorno.getActual().getx()-entorno.getFin().getx());
+			double dy=(entorno.getActual().gety()-entorno.getFin().gety());
+		
+			Entorno movimiento[]=new Entorno[8];
+			for(int i=0;i<8;i++){
+				movimiento[i]=entorno;
+			}
+			double Distancia[]=new double[8];
+			for(int i =0;i<8;i++){
+		    Ciudad actual=new Ciudad();		
+			if(i==0){
+				actual.setx(entorno.getActual().getx()+1);
+				actual.sety(entorno.getActual().gety());
+				}
+				else if(i==1){
+					actual.setx(entorno.getActual().getx()-1);
+					actual.sety(entorno.getActual().gety());	
+				}
+				else if(i==2){
+					actual.setx(entorno.getActual().getx());
+					actual.sety(entorno.getActual().gety()-1);
+				}
+				else if(i==3){
+					actual.setx(entorno.getActual().getx());
+					actual.sety(entorno.getActual().gety()+1);
+				}
+				else if(i==4){
+					actual.setx(entorno.getActual().getx()+1);
+					actual.sety(entorno.getActual().gety()+1);
+					}
+					else if(i==5){
+						actual.setx(entorno.getActual().getx()-1);
+						actual.sety(entorno.getActual().gety()-1);	
+					}
+					else if(i==6){
+						actual.setx(entorno.getActual().getx()+1);
+						actual.sety(entorno.getActual().gety()-1);
+					}
+					else if(i==7){
+						actual.setx(entorno.getActual().getx()-1);
+						actual.sety(entorno.getActual().gety()+1);
+					}
+				
+				movimiento[i].setActual(actual);
+			    movimiento[i].setFin(entorno.getFin());
+			}
+			for(int i=0;i<8;i++){
+				Desplazarse d = new Desplazarse(movimiento[i].getFin());
+				d.calcularCoste(movimiento[i]);	
+				Distancia[i]=d.getCost();
+			}
+			double d=Distancia[0];
+		int pos =0;
+				for(int j=1;j<8;j++){
+					if(d>Distancia[j]){
+						d=Distancia[j];
+						pos=j;
+					}
+				}
+				if(pos<4){
+			return d*(dx+dy);
+		}else{
+			return (d/2)*(dx+dy);
+		}
+				}
+		
 	}
 

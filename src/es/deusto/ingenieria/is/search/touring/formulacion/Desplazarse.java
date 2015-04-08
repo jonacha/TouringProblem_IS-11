@@ -58,9 +58,57 @@ public class Desplazarse extends Operator {
 	 * Calcular la distancia y guardala en coste mediante la formula de calcular la distancia entre dos puntos
 	 */
 	public void calcularCoste(State estado) {
-		Entorno entorno = (Entorno) estado;
+	Entorno entorno = (Entorno) estado;
 		this.setCost(Math.sqrt((Math.pow(destino.getx() - entorno.getActual().getx(), 2)) + (Math.pow(destino.gety() - entorno.getActual().gety(), 2))));
-	}
+/*	while(entorno.getActual().getx()==this.destino.getx()&&entorno.getActual().gety()==this.destino.gety()) {	  
+	        
+				
+					Entorno movimiento[]=new Entorno[4];
+					for(int i=0;i<4;i++){
+						movimiento[i]=entorno;
+					}
+					double Distancia[]=new double[4];
+					for(int i =0;i<4;i++){
+				    Ciudad actual=new Ciudad();		
+					if(i==0){
+						actual.setx(entorno.getActual().getx()+1);
+						actual.sety(entorno.getActual().gety());
+						}
+						else if(i==1){
+							actual.setx(entorno.getActual().getx()-1);
+							actual.sety(entorno.getActual().gety());	
+						}
+						else if(i==2){
+							actual.setx(entorno.getActual().getx());
+							actual.sety(entorno.getActual().gety()-1);
+						}
+						else if(i==3){
+							actual.setx(entorno.getActual().getx());
+							actual.sety(entorno.getActual().gety()+1);
+						}
+						
+						movimiento[i].setActual(actual);
+					    movimiento[i].setFin(entorno.getFin());
+					}
+					for(int i=0;i<4;i++){
+						Desplazarse d = new Desplazarse(movimiento[i].getFin());
+						d.calcularCoste(movimiento[i]);	
+						Distancia[i]=d.getCost();
+					}
+					double d=Distancia[0];
+				int pos=0;
+						for(int j=1;j<4;j++){
+							if(d>Distancia[j]){
+								d=Distancia[j];
+								pos=j;
+							}
+						}
+				entorno.setActual(movimiento[pos].getActual());
+				this.setCost(this.getCost()+1);
+		       }
+	*/
+		        }
+	
 	
 	@Override
 	/**
