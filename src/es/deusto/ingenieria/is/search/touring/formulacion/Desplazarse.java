@@ -59,54 +59,20 @@ public class Desplazarse extends Operator {
 	 */
 	public void calcularCoste(State estado) {
 	Entorno entorno = (Entorno) estado;
-		this.setCost(Math.sqrt((Math.pow(destino.getx() - entorno.getActual().getx(), 2)) + (Math.pow(destino.gety() - entorno.getActual().gety(), 2))));
-/*	while(entorno.getActual().getx()==this.destino.getx()&&entorno.getActual().gety()==this.destino.gety()) {	  
-	        
-				
-					Entorno movimiento[]=new Entorno[4];
-					for(int i=0;i<4;i++){
-						movimiento[i]=entorno;
-					}
-					double Distancia[]=new double[4];
-					for(int i =0;i<4;i++){
-				    Ciudad actual=new Ciudad();		
-					if(i==0){
-						actual.setx(entorno.getActual().getx()+1);
-						actual.sety(entorno.getActual().gety());
-						}
-						else if(i==1){
-							actual.setx(entorno.getActual().getx()-1);
-							actual.sety(entorno.getActual().gety());	
-						}
-						else if(i==2){
-							actual.setx(entorno.getActual().getx());
-							actual.sety(entorno.getActual().gety()-1);
-						}
-						else if(i==3){
-							actual.setx(entorno.getActual().getx());
-							actual.sety(entorno.getActual().gety()+1);
-						}
-						
-						movimiento[i].setActual(actual);
-					    movimiento[i].setFin(entorno.getFin());
-					}
-					for(int i=0;i<4;i++){
-						Desplazarse d = new Desplazarse(movimiento[i].getFin());
-						d.calcularCoste(movimiento[i]);	
-						Distancia[i]=d.getCost();
-					}
-					double d=Distancia[0];
-				int pos=0;
-						for(int j=1;j<4;j++){
-							if(d>Distancia[j]){
-								d=Distancia[j];
-								pos=j;
-							}
-						}
-				entorno.setActual(movimiento[pos].getActual());
-				this.setCost(this.getCost()+1);
-		       }
-	*/
+	/*
+	 * Importante tener en cuenta en touring problem is final state seleccionar el mismo que seleccionemos
+	 * aqui para que de un resultado correcto
+	 */
+	//distancia euclidea 
+		//this.setCost(Math.sqrt((Math.pow(destino.getx() - entorno.getActual().getx(), 2)) + (Math.pow(destino.gety() - entorno.getActual().gety(), 2))));
+	
+	//distancia Manhattan
+		//this.setCost(Math.abs(destino.getx() - entorno.getActual().getx())+Math.abs(destino.gety() - entorno.getActual().gety()));
+	
+	//distancia Chebyshev
+		this.setCost(Math.max(Math.abs(destino.getx()-entorno.getActual().getx()) , Math.abs(destino.gety() - entorno.getActual().gety())));
+	
+
 		        }
 	
 	

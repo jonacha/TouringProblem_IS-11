@@ -47,7 +47,14 @@ public class TouringProblem extends Problem {
 		Entorno entorno=(Entorno) this.getFinalStates().get(0);
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado);
 		if(nuevoEntorno.getCiudades().size() == nuevoEntorno.getCiudadesVisitadas().size()) {
-			double distancia=Math.sqrt((Math.pow(nuevoEntorno.getActual().getx() - nuevoEntorno.getFin().getx(), 2)) + (Math.pow(nuevoEntorno.getActual().gety() - entorno.getFin().gety(), 2)));
+			//distancia Euclidea
+			//double distancia=Math.sqrt((Math.pow(nuevoEntorno.getActual().getx() - nuevoEntorno.getFin().getx(), 2)) + (Math.pow(nuevoEntorno.getActual().gety() - entorno.getFin().gety(), 2)));
+			
+			//distancia Manhattan
+			//double distancia=Math.abs(entorno.getFin().getx() - nuevoEntorno.getActual().getx())+Math.abs(entorno.getFin().gety() - nuevoEntorno.getActual().gety());
+			
+			//distancia Chebyshev
+			double distancia=Math.max(Math.abs(entorno.getFin().getx()-nuevoEntorno.getActual().getx()) , Math.abs(entorno.getFin().gety() - nuevoEntorno.getActual().gety()));
 			nuevoEntorno.getDistanciaIndividual().add(distancia);
 			nuevoEntorno.setDistanciaTotal(nuevoEntorno.getDistanciaTotal()+distancia);
 			return true;
