@@ -1,293 +1,154 @@
 package es.deusto.ingenieria.is.search.touring.formulacion.heuristics;
 
-
-	import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
-	import es.deusto.ingenieria.is.search.algorithms.Node;
+import es.deusto.ingenieria.is.search.algorithms.Node;
 import es.deusto.ingenieria.is.search.algorithms.SearchMethod;
-import es.deusto.ingenieria.is.search.algorithms.blind.BreadthFS;
 import es.deusto.ingenieria.is.search.algorithms.log.SearchLog;
 import es.deusto.ingenieria.is.search.formulation.Problem;
 import es.deusto.ingenieria.is.search.formulation.State;
-import es.deusto.ingenieria.is.search.touring.formulacion.Ciudad;
-import es.deusto.ingenieria.is.search.touring.formulacion.Desplazarse;
 import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 
+/**
+ * This class defines the Breadth First Search Method. 
+ * It is defined according to the design pattern <b>Singleton</b>.
+ */
+public class CosteUniforme extends SearchMethod {
+
 	/**
-	 * This class defines the Breadth First Search Method. 
-	 * It is defined according to the design pattern <b>Singleton</b>.
+	 * In accordance with the pattern <b>Singleton</b>, 
+	 * a single instance of the class will be created
 	 */
-	public class CosteUniforme extends SearchMethod {
+	private static CosteUniforme instance;
 
-		/**
-		 * In accordance with the pattern <b>Singleton</b>, 
-		 * a single instance of the class will be created
-		 */
-		private static CosteUniforme instance;
-		
-		/**
-		 * Constructor method is private in accordance with the pattern <b>Singleton</b>
-		 */
-		
-		private CosteUniforme() {		
+	/**
+	 * Constructor method is private in accordance with the pattern <b>Singleton</b>
+	 */
+
+	private CosteUniforme() {		
+	}
+
+	public static void setInstance(CosteUniforme instance) {
+		CosteUniforme.instance = instance;
+	}
+
+	/**
+	 * In accordance with the pattern <b>Singleton</b> a class method invokes the constructor
+	 * and guarantees one single instantiation of the class.
+	 * @return BreadthFS, the single instance of the class.
+	 */
+	public static CosteUniforme getInstance() {
+		if (instance == null) {
+			instance = new CosteUniforme();
 		}
+
+		return instance;
+	}
+
+
+	/**
+	 * Carries out a search process from the initial state
+	 * to the final state of the given problem.
+	 * This method is defined according to the second version of the basic search algorithm
+	 * which checks for repeated states (refer to the last algorithm studied in chapter 3).
+	 * 
+	 * @param problem
+	 *            Problem to be solved by a search method.
+	 * @param initialState
+	 *            Problem's initial state. 
+	 * @return Node
+	 *         <ul>
+	 *         <li>If a solution is found, Node contains the problem's final state</li>
+	 *         <li>If the problem can't be solved, Node contains null.</li>
+	 *         </ul>
+	 */
+	public Node search(Problem problem, State initialState) {
 		
-		public static void setInstance(CosteUniforme instance) {
-			CosteUniforme.instance = instance;
-		}
+		//A queue is used to keep the nodes generated during the search process.
+		ArrayList<Node> frontier = new ArrayList<Node>();
+		//List of states generated during the search process. This is used to check for repeated states.
+		List<State> generatedStates = new ArrayList<State>();
+		//List of states expended during the search process. This is used to check for repeated states.
+		List<State> expandedStates = new ArrayList<State>();
+		//Queue's first node.
+		Node firstNode = null;
+		//successor nodes list.
+		List<Node> successorNodes = null;		
+		//flag to signal whether a solution has been found or not.
+		boolean solutionFound = false;
 
-		/**
-		 * In accordance with the pattern <b>Singleton</b> a class method invokes the constructor
-		 * and guarantees one single instantiation of the class.
-		 * @return BreadthFS, the single instance of the class.
-		 */
-		public static CosteUniforme getInstance() {
-			if (instance == null) {
-				instance = new CosteUniforme();
-			}
-			
-			return instance;
-		}
-		
-		
-		/**
-		 * Carries out a search process from the initial state
-		 * to the final state of the given problem.
-		 * This method is defined according to the second version of the basic search algorithm
-		 * which checks for repeated states (refer to the last algorithm studied in chapter 3).
-		 * 
-		 * @param problem
-		 *            Problem to be solved by a search method.
-		 * @param initialState
-		 *            Problem's initial state. 
-		 * @return Node
-		 *         <ul>
-		 *         <li>If a solution is found, Node contains the problem's final state</li>
-		 *         <li>If the problem can't be solved, Node contains null.</li>
-		 *         </ul>
-		 */
-		public Node search(Problem problem, State initialState) {
-			/*
-			 * Func?on Tree‐Search() 
+		//Initialize the queue with a node that contains the problem's initial state.
+		frontier.add(new Node(initialState));
+		//The initial state is kept in the list of generated states.
+		generatedStates.add(initialState);
 
+		SearchLog searchLog = this.createSearchLog();
 
-			1.  Make a node with the ini3al problem state 
-			2.  Insert node into the fron3er data structure 
-			3.  WHILE ﬁnal state not found AND fron3er is not empty DO 
-				3.1   Remove ﬁrst node from the fron3er . 
-				3.2   IF node contains ﬁnal state THEN ﬁnal state found 
-				3.3   IF node doesn’t contain ﬁnal state THEN 
-					3.3.1    EXPAND node’s state. 
-					3.3.2  Insert successor nodes into fron3er  
-			4.  IF ﬁnal state found THEN 
-				 4.1  RETURN sequence of ac3ons found  
-ELSE  “solu3on not found” 
-			 */
-			//A queue is used to keep the nodes generated during the search process.
-			ArrayList<Node> frontier = new ArrayList<Node>();
-			//List of states generated during the search process. This is used to check for repeated states.
-			List<State> generatedStates = new ArrayList<State>();
-			//List of states expended during the search process. This is used to check for repeated states.
-			List<State> expandedStates = new ArrayList<State>();
-			//Queue's first node.
-			Node firstNode = null;
-			//successor nodes list.
-			List<Node> successorNodes = null;		
-			//flag to signal whether a solution has been found or not.
-			boolean solutionFound = false;
-
-			//Initialize the queue with a node that contains the problem's initial state.
-			frontier.add(new Node(initialState));
-			//The initial state is kept in the list of generated states.
-			generatedStates.add(initialState);
-			
-                 SearchLog searchLog = this.createSearchLog();
-			
-			//Loop until a solution is found or the queue empties
-			while (!solutionFound && !frontier.isEmpty()) {	
-				//Remove the first node from the queue.
-				firstNode = frontier.remove(0);
-				//If the first node contains a problem's final state, then it's solved
-				if (problem.isFinalState(firstNode.getState())) {
-					//change the flag to signal that the problem is solved
-					solutionFound = true;
+		//Loop until a solution is found or the queue empties
+		while (!solutionFound && !frontier.isEmpty()) {	
+			//Remove the first node from the queue.
+			firstNode = frontier.remove(0);
+			//If the first node contains a problem's final state, then it's solved
+			if (problem.isFinalState(firstNode.getState())) {
+				//change the flag to signal that the problem is solved
+				solutionFound = true;
 				//If the first node doesn't contain a problem's final state
-				} else {
-					//expand the first node.
-					successorNodes = super.expand(firstNode, problem, generatedStates, expandedStates);
-					//If the expansion resulted in new successor nodes
-					if (successorNodes != null && !successorNodes.isEmpty()) {
-						//Add the new successor nodes to the queue of nodes.
-						frontier.addAll(successorNodes);
-						
-					this.writeInSeachLog(searchLog, frontier);	
-						
-					}
-
-
-					Node node;
-					for(int i=0;i<frontier.size()-1;i++){
-						for(int j=0;j<frontier.size()-i-1;j++){
-							Node state=frontier.get(j+1);
-							Entorno e1=(Entorno)state.getState();
-							double distancia1=e1.getDistanciaTotal();	
-							
-							Node state2=frontier.get(j);
-							Entorno e2=(Entorno)state2.getState();
-							double distancia2=e2.getDistanciaTotal();	
-							if(distancia1<distancia2){
-								node=frontier.get(j+1);
-								frontier.set(j+1,frontier.get(j));
-								frontier.set(j, node);
-							}
-						}
-					}
-					for(int i=0;i<frontier.size()-1;i++){
-						Node state=frontier.get(i);
-						Entorno e1=(Entorno)state.getState();
-						for(int j=i+1;j<frontier.size()-1;j++){
-							Node state2=frontier.get(j);
-							Entorno e2=(Entorno)state2.getState();
-							if(e1.equals(e2)){
-								frontier.remove(j);
-							}
-						}
-						}
-				
-			}}
-
-			// If the problem is solved
-			if (solutionFound) {
-				//The first node of the queue is returned as it contains the problem's final state
-				return firstNode;
-			//If the problem isn't solved
 			} else {
-				//null is returned
-				return null;
+				//expand the first node.
+				successorNodes = super.expand(firstNode, problem, generatedStates, expandedStates);
+				//If the expansion resulted in new successor nodes
+				if (successorNodes != null && !successorNodes.isEmpty()) {
+					//Add the new successor nodes to the queue of nodes.
+					frontier.addAll(successorNodes);
+
+
+
+				}
+
+
+				Node node;
+				for(int i=0;i<frontier.size()-1;i++){
+					for(int j=0;j<frontier.size()-i-1;j++){
+						Node state=frontier.get(j+1);
+						Entorno e1=(Entorno)state.getState();
+						double distancia1=e1.getDistanciaTotal();	
+
+						Node state2=frontier.get(j);
+						Entorno e2=(Entorno)state2.getState();
+						double distancia2=e2.getDistanciaTotal();	
+						if(distancia1<distancia2){
+							node=frontier.get(j+1);
+							frontier.set(j+1,frontier.get(j));
+							frontier.set(j, node);
+						}
+					}
+				}
+				for(int i=0;i<frontier.size()-1;i++){
+					Node state=frontier.get(i);
+					Entorno e1=(Entorno)state.getState();
+					for(int j=i+1;j<frontier.size()-1;j++){
+						Node state2=frontier.get(j);
+						Entorno e2=(Entorno)state2.getState();
+						if(e1.equals(e2)){
+							frontier.remove(j);
+						}
+					}
+				}
+				this.writeInSeachLog(searchLog, frontier);	
 			}
-		
-	}
-//		public double Manhattan(Node node) {
-//			if(node!=null){
-//			Entorno entorno = (Entorno) node.getState(); 
-//			double dx=(entorno.getActual().getx()-entorno.getFin().getx());
-//			double dy=(entorno.getActual().gety()-entorno.getFin().gety());
-//		
-//			Entorno movimiento[]=new Entorno[4];
-//			for(int i=0;i<4;i++){
-//				movimiento[i]=entorno;
-//			}
-//			double Distancia[]=new double[4];
-//			for(int i =0;i<4;i++){
-//		    Ciudad actual=new Ciudad();		
-//			if(i==0){
-//				actual.setx(entorno.getActual().getx()+1);
-//				actual.sety(entorno.getActual().gety());
-//				}
-//				else if(i==1){
-//					actual.setx(entorno.getActual().getx()-1);
-//					actual.sety(entorno.getActual().gety());	
-//				}
-//				else if(i==2){
-//					actual.setx(entorno.getActual().getx());
-//					actual.sety(entorno.getActual().gety()-1);
-//				}
-//				else if(i==3){
-//					actual.setx(entorno.getActual().getx());
-//					actual.sety(entorno.getActual().gety()+1);
-//				}
-//				
-//				movimiento[i].setActual(actual);
-//			    movimiento[i].setFin(entorno.getFin());
-//			}
-//			for(int i=0;i<4;i++){
-//				Desplazarse d = new Desplazarse(movimiento[i].getFin());
-//				d.calcularCoste(movimiento[i]);	
-//				Distancia[i]=d.getCost();
-//			}
-//			double d=Distancia[0];
-//		
-//				for(int j=1;j<4;j++){
-//					if(d>Distancia[j]){
-//						d=Distancia[j];
-//					}
-//				}
-//			return d*(dx+dy);
-//		}else{
-//			return 0;
-//		}
-//			}
-//	
-//		public double Chebyshev(Node node) {
-//			Entorno entorno = (Entorno) node.getState(); 
-//			double dx=(entorno.getActual().getx()-entorno.getFin().getx());
-//			double dy=(entorno.getActual().gety()-entorno.getFin().gety());
-//		
-//			Entorno movimiento[]=new Entorno[8];
-//			for(int i=0;i<8;i++){
-//				movimiento[i]=entorno;
-//			}
-//			double Distancia[]=new double[8];
-//			for(int i =0;i<8;i++){
-//		    Ciudad actual=new Ciudad();		
-//			if(i==0){
-//				actual.setx(entorno.getActual().getx()+1);
-//				actual.sety(entorno.getActual().gety());
-//				}
-//				else if(i==1){
-//					actual.setx(entorno.getActual().getx()-1);
-//					actual.sety(entorno.getActual().gety());	
-//				}
-//				else if(i==2){
-//					actual.setx(entorno.getActual().getx());
-//					actual.sety(entorno.getActual().gety()-1);
-//				}
-//				else if(i==3){
-//					actual.setx(entorno.getActual().getx());
-//					actual.sety(entorno.getActual().gety()+1);
-//				}
-//				else if(i==4){
-//					actual.setx(entorno.getActual().getx()+1);
-//					actual.sety(entorno.getActual().gety()+1);
-//					}
-//					else if(i==5){
-//						actual.setx(entorno.getActual().getx()-1);
-//						actual.sety(entorno.getActual().gety()-1);	
-//					}
-//					else if(i==6){
-//						actual.setx(entorno.getActual().getx()+1);
-//						actual.sety(entorno.getActual().gety()-1);
-//					}
-//					else if(i==7){
-//						actual.setx(entorno.getActual().getx()-1);
-//						actual.sety(entorno.getActual().gety()+1);
-//					}
-//				
-//				movimiento[i].setActual(actual);
-//			    movimiento[i].setFin(entorno.getFin());
-//			}
-//			for(int i=0;i<8;i++){
-//				Desplazarse d = new Desplazarse(movimiento[i].getFin());
-//				d.calcularCoste(movimiento[i]);	
-//				Distancia[i]=d.getCost();
-//			}
-//			double d=Distancia[0];
-//		int pos =0;
-//				for(int j=1;j<8;j++){
-//					if(d>Distancia[j]){
-//						d=Distancia[j];
-//						pos=j;
-//					}
-//				}
-//				if(pos<4){
-//			return d*(dx+dy);
-//		}else{
-//			return (d/2)*(dx+dy);
-//		}
-//				}
-		
+		}
+
+		// If the problem is solved
+		if (solutionFound) {
+			//The first node of the queue is returned as it contains the problem's final state
+			return frontier.get(0);
+			//If the problem isn't solved
+		} else {
+			//null is returned
+			return null;
+		}
+
 	}
 
+}
