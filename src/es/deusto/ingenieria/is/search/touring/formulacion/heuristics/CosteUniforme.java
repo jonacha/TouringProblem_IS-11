@@ -70,6 +70,22 @@ import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 		 *         </ul>
 		 */
 		public Node search(Problem problem, State initialState) {
+			/*
+			 * Func?on Tree‐Search() 
+
+
+			1.  Make a node with the ini3al problem state 
+			2.  Insert node into the fron3er data structure 
+			3.  WHILE ﬁnal state not found AND fron3er is not empty DO 
+				3.1   Remove ﬁrst node from the fron3er . 
+				3.2   IF node contains ﬁnal state THEN ﬁnal state found 
+				3.3   IF node doesn’t contain ﬁnal state THEN 
+					3.3.1    EXPAND node’s state. 
+					3.3.2  Insert successor nodes into fron3er  
+			4.  IF ﬁnal state found THEN 
+				 4.1  RETURN sequence of ac3ons found  
+ELSE  “solu3on not found” 
+			 */
 			//A queue is used to keep the nodes generated during the search process.
 			ArrayList<Node> frontier = new ArrayList<Node>();
 			//List of states generated during the search process. This is used to check for repeated states.
@@ -88,7 +104,7 @@ import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 			//The initial state is kept in the list of generated states.
 			generatedStates.add(initialState);
 			
-//			SearchLog searchLog = this.createSearchLog();
+                 SearchLog searchLog = this.createSearchLog();
 			
 			//Loop until a solution is found or the queue empties
 			while (!solutionFound && !frontier.isEmpty()) {	
@@ -107,7 +123,7 @@ import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 						//Add the new successor nodes to the queue of nodes.
 						frontier.addAll(successorNodes);
 						
-//						this.writeInSeachLog(searchLog, frontier);	
+					this.writeInSeachLog(searchLog, frontier);	
 						
 					}
 
@@ -129,6 +145,17 @@ import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 							}
 						}
 					}
+					for(int i=0;i<frontier.size()-1;i++){
+						Node state=frontier.get(i);
+						Entorno e1=(Entorno)state.getState();
+						for(int j=i+1;j<frontier.size()-1;j++){
+							Node state2=frontier.get(j);
+							Entorno e2=(Entorno)state2.getState();
+							if(e1.equals(e2)){
+								frontier.remove(j);
+							}
+						}
+						}
 				
 			}}
 
@@ -143,124 +170,124 @@ import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 			}
 		
 	}
-		public double Manhattan(Node node) {
-			if(node!=null){
-			Entorno entorno = (Entorno) node.getState(); 
-			double dx=(entorno.getActual().getx()-entorno.getFin().getx());
-			double dy=(entorno.getActual().gety()-entorno.getFin().gety());
-		
-			Entorno movimiento[]=new Entorno[4];
-			for(int i=0;i<4;i++){
-				movimiento[i]=entorno;
-			}
-			double Distancia[]=new double[4];
-			for(int i =0;i<4;i++){
-		    Ciudad actual=new Ciudad();		
-			if(i==0){
-				actual.setx(entorno.getActual().getx()+1);
-				actual.sety(entorno.getActual().gety());
-				}
-				else if(i==1){
-					actual.setx(entorno.getActual().getx()-1);
-					actual.sety(entorno.getActual().gety());	
-				}
-				else if(i==2){
-					actual.setx(entorno.getActual().getx());
-					actual.sety(entorno.getActual().gety()-1);
-				}
-				else if(i==3){
-					actual.setx(entorno.getActual().getx());
-					actual.sety(entorno.getActual().gety()+1);
-				}
-				
-				movimiento[i].setActual(actual);
-			    movimiento[i].setFin(entorno.getFin());
-			}
-			for(int i=0;i<4;i++){
-				Desplazarse d = new Desplazarse(movimiento[i].getFin());
-				d.calcularCoste(movimiento[i]);	
-				Distancia[i]=d.getCost();
-			}
-			double d=Distancia[0];
-		
-				for(int j=1;j<4;j++){
-					if(d>Distancia[j]){
-						d=Distancia[j];
-					}
-				}
-			return d*(dx+dy);
-		}else{
-			return 0;
-		}
-			}
-	
-		public double Chebyshev(Node node) {
-			Entorno entorno = (Entorno) node.getState(); 
-			double dx=(entorno.getActual().getx()-entorno.getFin().getx());
-			double dy=(entorno.getActual().gety()-entorno.getFin().gety());
-		
-			Entorno movimiento[]=new Entorno[8];
-			for(int i=0;i<8;i++){
-				movimiento[i]=entorno;
-			}
-			double Distancia[]=new double[8];
-			for(int i =0;i<8;i++){
-		    Ciudad actual=new Ciudad();		
-			if(i==0){
-				actual.setx(entorno.getActual().getx()+1);
-				actual.sety(entorno.getActual().gety());
-				}
-				else if(i==1){
-					actual.setx(entorno.getActual().getx()-1);
-					actual.sety(entorno.getActual().gety());	
-				}
-				else if(i==2){
-					actual.setx(entorno.getActual().getx());
-					actual.sety(entorno.getActual().gety()-1);
-				}
-				else if(i==3){
-					actual.setx(entorno.getActual().getx());
-					actual.sety(entorno.getActual().gety()+1);
-				}
-				else if(i==4){
-					actual.setx(entorno.getActual().getx()+1);
-					actual.sety(entorno.getActual().gety()+1);
-					}
-					else if(i==5){
-						actual.setx(entorno.getActual().getx()-1);
-						actual.sety(entorno.getActual().gety()-1);	
-					}
-					else if(i==6){
-						actual.setx(entorno.getActual().getx()+1);
-						actual.sety(entorno.getActual().gety()-1);
-					}
-					else if(i==7){
-						actual.setx(entorno.getActual().getx()-1);
-						actual.sety(entorno.getActual().gety()+1);
-					}
-				
-				movimiento[i].setActual(actual);
-			    movimiento[i].setFin(entorno.getFin());
-			}
-			for(int i=0;i<8;i++){
-				Desplazarse d = new Desplazarse(movimiento[i].getFin());
-				d.calcularCoste(movimiento[i]);	
-				Distancia[i]=d.getCost();
-			}
-			double d=Distancia[0];
-		int pos =0;
-				for(int j=1;j<8;j++){
-					if(d>Distancia[j]){
-						d=Distancia[j];
-						pos=j;
-					}
-				}
-				if(pos<4){
-			return d*(dx+dy);
-		}else{
-			return (d/2)*(dx+dy);
-		}
-				}
+//		public double Manhattan(Node node) {
+//			if(node!=null){
+//			Entorno entorno = (Entorno) node.getState(); 
+//			double dx=(entorno.getActual().getx()-entorno.getFin().getx());
+//			double dy=(entorno.getActual().gety()-entorno.getFin().gety());
+//		
+//			Entorno movimiento[]=new Entorno[4];
+//			for(int i=0;i<4;i++){
+//				movimiento[i]=entorno;
+//			}
+//			double Distancia[]=new double[4];
+//			for(int i =0;i<4;i++){
+//		    Ciudad actual=new Ciudad();		
+//			if(i==0){
+//				actual.setx(entorno.getActual().getx()+1);
+//				actual.sety(entorno.getActual().gety());
+//				}
+//				else if(i==1){
+//					actual.setx(entorno.getActual().getx()-1);
+//					actual.sety(entorno.getActual().gety());	
+//				}
+//				else if(i==2){
+//					actual.setx(entorno.getActual().getx());
+//					actual.sety(entorno.getActual().gety()-1);
+//				}
+//				else if(i==3){
+//					actual.setx(entorno.getActual().getx());
+//					actual.sety(entorno.getActual().gety()+1);
+//				}
+//				
+//				movimiento[i].setActual(actual);
+//			    movimiento[i].setFin(entorno.getFin());
+//			}
+//			for(int i=0;i<4;i++){
+//				Desplazarse d = new Desplazarse(movimiento[i].getFin());
+//				d.calcularCoste(movimiento[i]);	
+//				Distancia[i]=d.getCost();
+//			}
+//			double d=Distancia[0];
+//		
+//				for(int j=1;j<4;j++){
+//					if(d>Distancia[j]){
+//						d=Distancia[j];
+//					}
+//				}
+//			return d*(dx+dy);
+//		}else{
+//			return 0;
+//		}
+//			}
+//	
+//		public double Chebyshev(Node node) {
+//			Entorno entorno = (Entorno) node.getState(); 
+//			double dx=(entorno.getActual().getx()-entorno.getFin().getx());
+//			double dy=(entorno.getActual().gety()-entorno.getFin().gety());
+//		
+//			Entorno movimiento[]=new Entorno[8];
+//			for(int i=0;i<8;i++){
+//				movimiento[i]=entorno;
+//			}
+//			double Distancia[]=new double[8];
+//			for(int i =0;i<8;i++){
+//		    Ciudad actual=new Ciudad();		
+//			if(i==0){
+//				actual.setx(entorno.getActual().getx()+1);
+//				actual.sety(entorno.getActual().gety());
+//				}
+//				else if(i==1){
+//					actual.setx(entorno.getActual().getx()-1);
+//					actual.sety(entorno.getActual().gety());	
+//				}
+//				else if(i==2){
+//					actual.setx(entorno.getActual().getx());
+//					actual.sety(entorno.getActual().gety()-1);
+//				}
+//				else if(i==3){
+//					actual.setx(entorno.getActual().getx());
+//					actual.sety(entorno.getActual().gety()+1);
+//				}
+//				else if(i==4){
+//					actual.setx(entorno.getActual().getx()+1);
+//					actual.sety(entorno.getActual().gety()+1);
+//					}
+//					else if(i==5){
+//						actual.setx(entorno.getActual().getx()-1);
+//						actual.sety(entorno.getActual().gety()-1);	
+//					}
+//					else if(i==6){
+//						actual.setx(entorno.getActual().getx()+1);
+//						actual.sety(entorno.getActual().gety()-1);
+//					}
+//					else if(i==7){
+//						actual.setx(entorno.getActual().getx()-1);
+//						actual.sety(entorno.getActual().gety()+1);
+//					}
+//				
+//				movimiento[i].setActual(actual);
+//			    movimiento[i].setFin(entorno.getFin());
+//			}
+//			for(int i=0;i<8;i++){
+//				Desplazarse d = new Desplazarse(movimiento[i].getFin());
+//				d.calcularCoste(movimiento[i]);	
+//				Distancia[i]=d.getCost();
+//			}
+//			double d=Distancia[0];
+//		int pos =0;
+//				for(int j=1;j<8;j++){
+//					if(d>Distancia[j]){
+//						d=Distancia[j];
+//						pos=j;
+//					}
+//				}
+//				if(pos<4){
+//			return d*(dx+dy);
+//		}else{
+//			return (d/2)*(dx+dy);
+//		}
+//				}
 		
 	}
 

@@ -58,6 +58,19 @@ public class CosteUniformeGrafSeach  extends SearchMethod{
 		 *         </ul>
 		 */
 		public Node search(Problem problem, State initialState) {
+			/*
+			 * 1.  Make a node with the ini3al problem state 
+				2.  Insert node into FRONTIER 
+				3.  Ini3alize EXPANDED states list to the empty list 
+				4.  WHILE ﬁnal state not found AND FRONTIER is NOT empty DO: 
+					4.1   Remove ﬁrst node from FRONTIER. 
+					4.2   IF node contains ﬁnal state THEN ﬁnal state found. 
+					4.3   IF node doesn’t contain ﬁnal state THEN 
+ 						4.3.1   Insert node’s state into EXPANDED states list 
+ 						4.3.2   EXPAND node’s state AND Insert successor nodes into   FRONTIER only if they are not in FRONTIER or EXPANDED   already 
+				5.  IF ﬁnal state found THEN return sequence of ac3ons found  
+ 				ELSE return “solu3on not found” 
+			 */
 			//A queue is used to keep the nodes generated during the search process.
 			ArrayList<Node> frontier = new ArrayList<Node>();
 			//List of states generated during the search process. This is used to check for repeated states.
@@ -74,7 +87,7 @@ public class CosteUniformeGrafSeach  extends SearchMethod{
 			//Initialize the queue with a node that contains the problem's initial state.
 			frontier.add(new Node(initialState));
 			//The initial state is kept in the list of generated states.
-			generatedStates.add(initialState);
+		//	generatedStates.add(initialState);
 			
 			SearchLog searchLog = this.createSearchLog();
 			
@@ -91,10 +104,12 @@ public class CosteUniformeGrafSeach  extends SearchMethod{
 				//If the first node doesn't contain a problem's final state
 				} else {
 					//expand the first node.
-					successorNodes = super.expand(firstNode, problem, generatedStates, expandedStates);
+					successorNodes.add(firstNode);
+					
 					//If the expansion resulted in new successor nodes
-					if (successorNodes != null && !successorNodes.isEmpty()) {
+					if (successorNodes != null && !successorNodes.isEmpty()&&!successorNodes.contains(firstNode)||!frontier.contains(firstNode)) {
 						//Add the new successor nodes to the queue of nodes.
+						successorNodes = super.expand(firstNode, problem, generatedStates, expandedStates);
 						frontier.addAll(successorNodes);
 						
 						
@@ -118,6 +133,16 @@ public class CosteUniformeGrafSeach  extends SearchMethod{
 						}
 					}
 				}
+				for(int i=0;i<frontier.size()-1;i++){
+					Node state=frontier.get(i);
+					Entorno e1=(Entorno)state.getState();
+					for(int j=i+1;j<frontier.size()-1;j++){
+						Node state2=frontier.get(j);
+						Entorno e2=(Entorno)state2.getState();
+						if(e1.equals(e2)){
+							frontier.remove(j);
+						}
+					}}
 		}
 			
 
