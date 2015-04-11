@@ -105,15 +105,29 @@ public class CosteUniforme extends SearchMethod {
 
 
 				}
+				
+//				for(int i=0;i<frontier.size()-1;i++){
+//					Node state=frontier.get(i);
+//					Entorno e1=(Entorno)state.getState();
+//					for(int j=i+1;j<frontier.size()-1;j++){
+//						Node state2=frontier.get(j);
+//						Entorno e2=(Entorno)state2.getState();
+//						
+//						if(e1.getCiudadesVisitadas().equals(e2.getCiudadesVisitadas())){
+//							System.out.println("hola");
+//							frontier.remove(j);
+//							
+//						}
+//					}
+//				}
 
-
+				//Ordenar los nodos
 				Node node;
 				for(int i=0;i<frontier.size()-1;i++){
 					for(int j=0;j<frontier.size()-i-1;j++){
 						Node state=frontier.get(j+1);
 						Entorno e1=(Entorno)state.getState();
 						double distancia1=e1.getDistanciaTotal();	
-
 						Node state2=frontier.get(j);
 						Entorno e2=(Entorno)state2.getState();
 						double distancia2=e2.getDistanciaTotal();	
@@ -124,17 +138,8 @@ public class CosteUniforme extends SearchMethod {
 						}
 					}
 				}
-				for(int i=0;i<frontier.size()-1;i++){
-					Node state=frontier.get(i);
-					Entorno e1=(Entorno)state.getState();
-					for(int j=i+1;j<frontier.size()-1;j++){
-						Node state2=frontier.get(j);
-						Entorno e2=(Entorno)state2.getState();
-						if(e1.equals(e2)){
-							frontier.remove(j);
-						}
-					}
-				}
+				//Quitar los repetidos
+				
 				this.writeInSeachLog(searchLog, frontier);	
 			}
 		}

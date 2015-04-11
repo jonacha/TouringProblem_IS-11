@@ -8,8 +8,9 @@ public class EvaluacionDeMovimientos extends EvaluationFunction {
 	@Override
 	public double calculateG(Node node) {
 		// TODO Auto-generated method stub
-
-		return 0;
+		Entorno entorno = (Entorno) node.getState(); 
+		
+		return entorno.getDistanciaTotal();
 	}
 
 	/**
