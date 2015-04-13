@@ -80,22 +80,22 @@ public class CUBestF extends HeuristicSearchMethod {
 						Collections.sort(frontier);//No ordena nada
 					}
 				}
-				Node node;
-				for(int i=0;i<frontier.size()-1;i++){
-					for(int j=0;j<frontier.size()-i-1;j++){
-						Node state=frontier.get(j+1);
-						Entorno e1=(Entorno)state.getState();
-						double distancia1=e1.getDistanciaTotal();	
-						Node state2=frontier.get(j);
-						Entorno e2=(Entorno)state2.getState();
-						double distancia2=e2.getDistanciaTotal();	
-						if(distancia1<distancia2){
-							node=frontier.get(j+1);
-							frontier.set(j+1,frontier.get(j));
-							frontier.set(j, node);
-						}
-					}
-				}
+//				Node node;
+//				for(int i=0;i<frontier.size()-1;i++){
+//					for(int j=0;j<frontier.size()-i-1;j++){
+//						Node state=frontier.get(j+1);
+//						Entorno e1=(Entorno)state.getState();
+//						double distancia1=e1.getDistanciaTotal();	
+//						Node state2=frontier.get(j);
+//						Entorno e2=(Entorno)state2.getState();
+//						double distancia2=e2.getDistanciaTotal();	
+//						if(distancia1<distancia2){
+//							node=frontier.get(j+1);
+//							frontier.set(j+1,frontier.get(j));
+//							frontier.set(j, node);
+//						}
+//					}
+//				}
 			}
 			
 			// If the problem is solved
@@ -155,7 +155,7 @@ public class CUBestF extends HeuristicSearchMethod {
 								successorNode.setParent(node);
 								successorNode.setDepth(node.getDepth() + 1);
 								//evaluation function = heuristic function
-								successorNode.setH(this.getEvaluationFunction().calculateH(successorNode));
+								successorNode.setG(this.getEvaluationFunction().calculateG(successorNode));
 								//Add the new node to the list of successor nodes.
 								successorNodes.add(successorNode);
 								//Insert current successor State to the list of generated states

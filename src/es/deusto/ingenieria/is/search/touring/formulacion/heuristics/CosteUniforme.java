@@ -140,7 +140,7 @@ public class CosteUniforme extends SearchMethod {
 				}
 				//Quitar los repetidos
 				
-				this.writeInSeachLog(searchLog, frontier);	
+				//this.writeInSeachLog(searchLog, frontier);	
 			}
 		}
 

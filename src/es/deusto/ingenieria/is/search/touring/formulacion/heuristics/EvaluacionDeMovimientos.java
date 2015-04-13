@@ -1,6 +1,7 @@
 package es.deusto.ingenieria.is.search.touring.formulacion.heuristics;
 import es.deusto.ingenieria.is.search.algorithms.Node;
 import es.deusto.ingenieria.is.search.algorithms.heuristic.EvaluationFunction;
+import es.deusto.ingenieria.is.search.touring.formulacion.Ciudad;
 import es.deusto.ingenieria.is.search.touring.formulacion.Desplazarse;
 import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 public class EvaluacionDeMovimientos extends EvaluationFunction {
@@ -26,7 +27,7 @@ public class EvaluacionDeMovimientos extends EvaluationFunction {
 		Desplazarse d = new Desplazarse(entorno.getFin());
 		d.calcularCoste(entorno);
 		distanciafin = d.getCost();
-		return distanciafin;
+		return distanciafin-1;
 	}
 	
 }

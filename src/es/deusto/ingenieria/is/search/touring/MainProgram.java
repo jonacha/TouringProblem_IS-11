@@ -36,10 +36,10 @@ public class MainProgram {
 	//		problem.solve(BreadthFSwithLog.getInstance()); // resuelve el recorrido registrando los datos en un txt algoritmo Breadth First.			
 	//      problem.solve(new BestFS(new Manhattan())); // resuelve el recorrido sin registrar los datos en un txt algoritmo Best First.
 	//		problem.solve(new BestFSwithLog(new EvaluacionDeMovimientos())); // resuelve el recorrido registrando los datos en un txt algoritmo Best First.
-		problem.solve(CosteUniforme.getInstance());	
+		//problem.solve(CosteUniforme.getInstance());	
 	
 			//problem .solve(CosteUniformeGrafSeach.getInstance());
-		//	problem.solve(new CUBestF(new EvaluacionDeMovimientos()));
+		problem.solve(new CUBestF(new EvaluacionDeMovimientos()));
 		} catch (Exception ex) {
 			System.err.println("% [Main Program] Error: " + ex.getMessage());
 			ex.printStackTrace();
