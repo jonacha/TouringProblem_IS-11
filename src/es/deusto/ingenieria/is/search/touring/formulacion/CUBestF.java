@@ -1,4 +1,4 @@
-package es.deusto.ingenieria.is.search.touring.formulacion.heuristics;
+package es.deusto.ingenieria.is.search.touring.formulacion;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +11,6 @@ import es.deusto.ingenieria.is.search.algorithms.heuristic.HeuristicSearchMethod
 import es.deusto.ingenieria.is.search.formulation.Operator;
 import es.deusto.ingenieria.is.search.formulation.Problem;
 import es.deusto.ingenieria.is.search.formulation.State;
-import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 
 public class CUBestF extends HeuristicSearchMethod {
 

@@ -7,8 +7,9 @@ import es.deusto.ingenieria.is.search.algorithms.blind.DepthFSwithLog;
 import es.deusto.ingenieria.is.search.algorithms.heuristic.BestFS;
 import es.deusto.ingenieria.is.search.algorithms.heuristic.BestFSwithLog;
 import es.deusto.ingenieria.is.search.algorithms.heuristic.EvaluationFunction;
+import es.deusto.ingenieria.is.search.touring.formulacion.CUBestF;
 import es.deusto.ingenieria.is.search.touring.formulacion.TouringProblem;
-import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.CUBestF;
+import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.DistanciaManhattan;
 import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.EvaluacionDeMovimientos;
 
 
@@ -37,7 +38,7 @@ public class MainProgram {
 		//problem.solve(CosteUniforme.getInstance());	
 	
 			//problem .solve(CosteUniformeGrafSeach.getInstance());
-		problem.solve(new CUBestF(new EvaluacionDeMovimientos()));
+		problem.solve(new CUBestF(new DistanciaManhattan()));
 		} catch (Exception ex) {
 			System.err.println("% [Main Program] Error: " + ex.getMessage());
 			ex.printStackTrace();

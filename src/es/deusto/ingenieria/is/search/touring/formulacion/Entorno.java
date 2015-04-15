@@ -136,4 +136,22 @@ public class Entorno extends State implements Cloneable {
 
 		return clon;
 	}
+	public double calcularManhatan(State estado){
+		double distanciaTotal=0;
+		 Entorno entorno = (Entorno) estado;
+		 double distancia=0;
+		 if(entorno.getCiudadesVisitadas().size()>0){
+			 distanciaTotal=Math.abs(entorno.getInicio().getx()-entorno.getCiudadesVisitadas().get(0).getx())+Math.abs(entorno.getInicio().gety()-entorno.getCiudadesVisitadas().get(0).gety());
+		 }
+		for(int i=0;i<entorno.getCiudadesVisitadas().size()-1;i++){
+		distancia=Math.abs(entorno.getCiudadesVisitadas().get(i).getx() - entorno.getCiudadesVisitadas().get(i+1).getx())+Math.abs(entorno.getCiudadesVisitadas().get(i).gety() - entorno.getCiudadesVisitadas().get(i+1).gety());
+		distanciaTotal=distanciaTotal+distancia;
+		}
+		if(entorno.getCiudades().size()==entorno.getCiudadesVisitadas().size()){
+			distanciaTotal=distanciaTotal+Math.abs(entorno.getCiudadesVisitadas().get(entorno.getCiudadesVisitadas().size()-1).getx() - entorno.getFin().getx())+Math.abs(entorno.getCiudadesVisitadas().get(entorno.getCiudadesVisitadas().size()-1).gety() - entorno.getFin().gety());
+		}
+		return distanciaTotal;
+	}
 }
+
+	
