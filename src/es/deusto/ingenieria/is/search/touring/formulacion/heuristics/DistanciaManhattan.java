@@ -6,11 +6,15 @@ import es.deusto.ingenieria.is.search.touring.formulacion.Entorno;
 
 public class DistanciaManhattan extends EvaluationFunction{
 
+	/**
+	 * Devuelve la distancia manhattan
+	 * @return
+	 */
 	@Override
 	public double calculateG(Node arg0) {
 		// TODO Auto-generated method stub
-Entorno entorno = (Entorno) arg0.getState(); 
-		return entorno.calcularManhatan(entorno);
+		Entorno entorno = (Entorno) arg0.getState(); 
+		return entorno.calcularManhattan(entorno);
 	}
 
 	@Override

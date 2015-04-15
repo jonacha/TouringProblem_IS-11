@@ -57,7 +57,7 @@ public class Entorno extends State implements Cloneable {
 	public void setDistanciaTotal(double distanciaTotal) {
 		this.distanciaTotal = distanciaTotal;
 	} 
-	
+
 	public ArrayList<Double> getDistanciaIndividual() {
 		return distanciaIndividual;
 	}
@@ -65,7 +65,7 @@ public class Entorno extends State implements Cloneable {
 	public void setDistanciaIndividual(ArrayList<Double> distanciaIndividual) {
 		this.distanciaIndividual = distanciaIndividual;
 	}
-	
+
 	@Override
 	/**
 	 * Muestra por pantalla toda la ruta elegida por el algoritmo, pero tambien se guarda en los TXT del Log, si se quiere ver por pantalla dejarlo así
@@ -73,9 +73,9 @@ public class Entorno extends State implements Cloneable {
 	 * @return String
 	 */
 	public String toString() {
-        String devuelto=actual.getNombre();
+		String devuelto=actual.getNombre();
 		if(aCiudadesVisitadas.size()==aCiudades.size()){
-			 devuelto="";
+			devuelto="";
 			devuelto = devuelto+inicio.getNombre()+" hasta "+aCiudadesVisitadas.get(0).getNombre() + " Distancia: " + distanciaIndividual.get(0) + "\n";
 			for(int i = 1; i < aCiudadesVisitadas.size(); i++) {
 				devuelto = devuelto + aCiudadesVisitadas.get(i-1).getNombre() + " hasta "+ aCiudadesVisitadas.get(i).getNombre() + " Distancia: " + distanciaIndividual.get(i) + "\n";	
@@ -136,22 +136,27 @@ public class Entorno extends State implements Cloneable {
 
 		return clon;
 	}
-	public double calcularManhatan(State estado){
-		double distanciaTotal=0;
-		 Entorno entorno = (Entorno) estado;
-		 double distancia=0;
-		 if(entorno.getCiudadesVisitadas().size()>0){
-			 distanciaTotal=Math.abs(entorno.getInicio().getx()-entorno.getCiudadesVisitadas().get(0).getx())+Math.abs(entorno.getInicio().gety()-entorno.getCiudadesVisitadas().get(0).gety());
-		 }
-		for(int i=0;i<entorno.getCiudadesVisitadas().size()-1;i++){
-		distancia=Math.abs(entorno.getCiudadesVisitadas().get(i).getx() - entorno.getCiudadesVisitadas().get(i+1).getx())+Math.abs(entorno.getCiudadesVisitadas().get(i).gety() - entorno.getCiudadesVisitadas().get(i+1).gety());
-		distanciaTotal=distanciaTotal+distancia;
+
+	/**
+	 * Se calcula la distancia total mediante la suma de distancias de la ciudad inicio a la primera ciudad visitada y de la primera a la segunda
+	 * hasta acabar la lista completa de visistadas y de la última a la final. La fórmula es distancia = |origenX - DestinoX| + |OrigenY - DestinoY| 
+	 * @param estado
+	 * @return
+	 */
+	public double calcularManhattan(State estado){
+		double distanciaTotal = 0;
+		Entorno entorno = (Entorno) estado;
+		double distancia = 0;
+		if(entorno.getCiudadesVisitadas().size() > 0){
+			distanciaTotal = Math.abs(entorno.getInicio().getx()-entorno.getCiudadesVisitadas().get(0).getx())+Math.abs(entorno.getInicio().gety()-entorno.getCiudadesVisitadas().get(0).gety());
+		}
+		for(int i = 0; i < entorno.getCiudadesVisitadas().size() - 1; i++){
+			distancia = Math.abs(entorno.getCiudadesVisitadas().get(i).getx() - entorno.getCiudadesVisitadas().get(i + 1).getx())+Math.abs(entorno.getCiudadesVisitadas().get(i).gety() - entorno.getCiudadesVisitadas().get(i + 1).gety());
+			distanciaTotal = distanciaTotal + distancia;
 		}
 		if(entorno.getCiudades().size()==entorno.getCiudadesVisitadas().size()){
-			distanciaTotal=distanciaTotal+Math.abs(entorno.getCiudadesVisitadas().get(entorno.getCiudadesVisitadas().size()-1).getx() - entorno.getFin().getx())+Math.abs(entorno.getCiudadesVisitadas().get(entorno.getCiudadesVisitadas().size()-1).gety() - entorno.getFin().gety());
+			distanciaTotal = distanciaTotal + Math.abs(entorno.getCiudadesVisitadas().get(entorno.getCiudadesVisitadas().size() - 1).getx() - entorno.getFin().getx()) + Math.abs(entorno.getCiudadesVisitadas().get(entorno.getCiudadesVisitadas().size() - 1).gety() - entorno.getFin().gety());
 		}
 		return distanciaTotal;
 	}
 }
-
-	

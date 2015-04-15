@@ -49,8 +49,8 @@ public class EntornoXMLReader extends StateXMLReader {
 
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
-		
-		
+
+
 		try {	
 			if (qName.equals("is:map")) {
 				aCiudades = new ArrayList<Ciudad>();
@@ -68,7 +68,7 @@ public class EntornoXMLReader extends StateXMLReader {
 				this.posX = Double.parseDouble(attributes.getValue("x"));
 				this.posY = Double.parseDouble(attributes.getValue("y"));
 				entorno.setFin(new Ciudad(posX,posY,nombre));
-			    
+
 			} 
 			else if (qName.equals("is:ciudad")) { 
 				this.nombre = attributes.getValue("nombre");
@@ -76,11 +76,11 @@ public class EntornoXMLReader extends StateXMLReader {
 				this.posY = Double.parseDouble(attributes.getValue("y"));
 				aCiudades.add(new Ciudad(posX,posY,nombre));
 			} 
-			
+
 		} catch (Exception ex) {
 			System.out.println(this.getClass().getName() + ".startElement(): " + ex);
 		}
-		
+
 	}
 
 	public int getCities() {
@@ -91,5 +91,3 @@ public class EntornoXMLReader extends StateXMLReader {
 		this.cities = cities;
 	}
 }
-
-

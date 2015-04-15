@@ -4,12 +4,12 @@ import es.deusto.ingenieria.is.search.formulation.Operator;
 import es.deusto.ingenieria.is.search.formulation.State;
 
 public class Desplazarse extends Operator {
-    private Ciudad destino;
-    
+	private Ciudad destino;
+
 	public Desplazarse() {
 		super("Desplazarse", 1d);
 	}
-	
+
 	public Desplazarse(Ciudad destino) {
 		this.destino = destino;
 		setName(destino.getNombre());
@@ -22,7 +22,7 @@ public class Desplazarse extends Operator {
 	public void setDestino(Ciudad destino) {
 		this.destino = destino;
 	}
-	
+
 	@Override
 	/**  
 	 * @param Strate
@@ -35,7 +35,7 @@ public class Desplazarse extends Operator {
 		//detectar visitadas, al resto puedo moverme
 		if(entorno.getCiudadesVisitadas().size() != 0) {
 			if(entorno.getCiudadesVisitadas().contains(destino)) {
-			return false;
+				return false;
 			}
 			else{
 				return true;
@@ -53,26 +53,20 @@ public class Desplazarse extends Operator {
 	public String toString() {
 		return "Desplazarse [destino= " + destino + " Distancia="+this.getCost()+"]";
 	}
-	
+
 	/**
 	 * Calcular la distancia y guardala en coste mediante la formula de calcular la distancia entre dos puntos
 	 */
 	public void calcularCoste(State estado) {
-	Entorno entorno = (Entorno) estado;
-	/*
-	 * Importante tener en cuenta en touring problem is final state seleccionar el mismo que seleccionemos
-	 * aqui para que de un resultado correcto
-	 */
-	//distancia euclidea 
+		Entorno entorno = (Entorno) estado;
+		/*
+		 * Importante tener en cuenta en touring problem is final state seleccionar el mismo que seleccionemos
+		 * aqui para que de un resultado correcto
+		 */
+
+		//distancia euclidea 
 		this.setCost(Math.sqrt((Math.pow(destino.getx() - entorno.getActual().getx(), 2)) + (Math.pow(destino.gety() - entorno.getActual().gety(), 2))));
-	
-	//distancia Manhattan
-	
-		//this.setCost(Math.abs(destino.getx() - entorno.getActual().getx())+Math.abs(destino.gety() - entorno.getActual().gety()));
-	
-	//distancia Chebyshev
-	//this.setCost(Math.max(Math.abs(destino.getx()-entorno.getActual().getx()) , Math.abs(destino.gety() - entorno.getActual().gety())));
-		        }
+	}
 
 	@Override
 	/**
@@ -88,9 +82,9 @@ public class Desplazarse extends Operator {
 	 */
 	protected State effect(State estado) {
 		Entorno nuevoEntorno = (Entorno)((Entorno) estado).clone();
-		
-	    calcularCoste(nuevoEntorno);
-	   // muestra la distancia entre la ciudad origen y destino actuales que llevarán a cabo la acción de desplazarse
+
+		calcularCoste(nuevoEntorno);
+		// muestra la distancia entre la ciudad origen y destino actuales que llevarán a cabo la acción de desplazarse
 		nuevoEntorno.getCiudadesVisitadas().add(this.destino);
 
 		if(!this.isApplicable(nuevoEntorno)){
