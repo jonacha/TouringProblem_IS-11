@@ -9,10 +9,8 @@ import es.deusto.ingenieria.is.search.algorithms.heuristic.BestFSwithLog;
 import es.deusto.ingenieria.is.search.algorithms.heuristic.EvaluationFunction;
 import es.deusto.ingenieria.is.search.touring.formulacion.TouringProblem;
 import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.CUBestF;
-import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.CosteUniforme;
-import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.CosteUniformeGrafSeach;
 import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.EvaluacionDeMovimientos;
-import es.deusto.ingenieria.is.search.touring.formulacion.heuristics.Manhattan;
+
 
 public class MainProgram {
 

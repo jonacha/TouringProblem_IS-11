@@ -77,7 +77,7 @@ public class CUBestF extends HeuristicSearchMethod {
 						//of the nodes. This comparison criteria is defined within the compareTo()
 						//method of Node.
 
-						Collections.sort(frontier);//No ordena nada
+						Collections.sort(frontier);
 					}
 				}
 //				Node node;

@@ -64,13 +64,14 @@ public class Desplazarse extends Operator {
 	 * aqui para que de un resultado correcto
 	 */
 	//distancia euclidea 
-		this.setCost(Math.sqrt((Math.pow(destino.getx() - entorno.getActual().getx(), 2)) + (Math.pow(destino.gety() - entorno.getActual().gety(), 2))));
+	//	this.setCost(Math.sqrt((Math.pow(destino.getx() - entorno.getActual().getx(), 2)) + (Math.pow(destino.gety() - entorno.getActual().gety(), 2))));
 	
 	//distancia Manhattan
+	
 		//this.setCost(Math.abs(destino.getx() - entorno.getActual().getx())+Math.abs(destino.gety() - entorno.getActual().gety()));
 	
 	//distancia Chebyshev
-	//this.setCost(Math.max(Math.abs(destino.getx()-entorno.getActual().getx()) , Math.abs(destino.gety() - entorno.getActual().gety())));
+	this.setCost(Math.max(Math.abs(destino.getx()-entorno.getActual().getx()) , Math.abs(destino.gety() - entorno.getActual().gety())));
 	
 
 		        }
