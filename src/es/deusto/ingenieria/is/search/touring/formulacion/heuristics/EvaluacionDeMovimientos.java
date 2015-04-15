@@ -14,9 +14,9 @@ public class EvaluacionDeMovimientos extends EvaluationFunction {
 		return entorno.getDistanciaTotal();
 	}
 
-	/**
+	/** 
 	 * Se calcula la distancia de la ciudad actual a la ciudad final de forma directa.
-	 * Por lo tanto sabemos que siempre la heuristica siempre va a ser verdadera.
+	 * Por lo tanto sabemos que siempre la heuristica siempre va a ser verdadera y correcta.
 	 * 
 	 */
 	@Override
